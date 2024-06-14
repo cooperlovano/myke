@@ -32,10 +32,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export default function Page({ page }) {
-  const router = useRouter();
   const isPreviewing = useIsPreviewing();
-
-  console.log(page);
 
   // If the page content is not available
   // and not in preview mode, show a 404 error page

@@ -17,9 +17,33 @@ const aspectRatios = [
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
 Builder.registerComponent(
-  dynamic(() => import('./components/Counter/Counter')),
+  dynamic(() => import('./components/builderio/Text')),
   {
-    name: 'Counter',
+    name: 'CustomText',
+    inputs: [{ name: 'content', type: 'html' }],
+  }
+);
+
+Builder.registerComponent(
+  dynamic(() => import('./components/builderio/ImageWithButton')),
+  {
+    name: 'ImageWithButton',
+    inputs: [
+      { name: 'image', type: 'file', allowedFileTypes: ['jpeg', 'png', 'webp'] },
+      { name: 'imageOpacity', type: 'number', defaultValue: 1, max: 1, min: 0 },
+      { name: 'headline', type: 'string' },
+      {
+        name: 'button',
+        type: 'object',
+        subFields: [
+          { name: 'label', type: 'string' },
+          { name: 'url', type: 'string' },
+          { name: 'buttonType', type: 'string', enum: ['primary', 'secondary'] },
+        ],
+      },
+      { name: 'aspectRatioDesktop', type: 'string', defaultValue: '16:9', enum: aspectRatios },
+      { name: 'aspectRatioMobile', type: 'string', defaultValue: '16:9', enum: aspectRatios },
+    ],
   }
 );
 

@@ -4,7 +4,9 @@ import React, { useState } from "react";
 import { Button } from '../ui/button';
 import { cn } from "@/lib/utils"
 import { NavigationMenu, NavigationMenuContent, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuLink, navigationMenuTriggerStyle } from '../ui/navigation-menu';
-import { List } from 'lucide-react';
+import { List, Menu } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 
 const menuItems = [
     {
@@ -29,11 +31,11 @@ const menuItems = [
     },
     {
         title: 'Dokumentation',
-        previewSection: {
-            title: 'Dokumentation',
-            subTitle: 'Über unsere Forschungsergebnisse',
-            url: '/docs'
-        },
+        // previewSection: {
+        //     title: 'Dokumentation',
+        //     subTitle: 'Über unsere Forschungsergebnisse',
+        //     url: '/docs'
+        // },
         subItems: [
             {
                 title: 'Einleitung',
@@ -67,7 +69,8 @@ function Navbar() {
     return (
         <div className='bg-white'>
             <nav className='flex justify-between max-w-screen-xl mx-auto p-4 items-center'>
-                <div className='shrink-0'>
+                <div className='shrink-0 flex gap-4 items-center'>
+                    <div className='sm:hidden block'><MobileMenu /></div>
                     <Link href='/'>
                         <img className='h-6' src='/myke_logo_dark.png' alt="MYKE Logo"/>
                     </Link>
@@ -81,6 +84,45 @@ function Navbar() {
             </nav>
         </div>
     );
+}
+
+function MobileMenu(){
+    return (
+        <Sheet>
+            <SheetTrigger className='flex items-center'>
+                <Menu size={24} />
+            </SheetTrigger>
+            <SheetContent side={'left'} className="pt-4">
+                <div>
+                    <Link href='/'>
+                        <img className='h-6' src='/myke_logo_dark.png' alt="MYKE Logo"/>
+                    </Link>
+                </div>
+                <div className='mt-8'>
+                <Accordion type='single' collapsible>
+                    {menuItems.map((item, index) => (
+                        <AccordionItem value={item.title} key={index}>
+                            {item.subItems && <AccordionTrigger className="pb-0">{item.title}</AccordionTrigger>}
+                            <AccordionContent>
+                                <ul className='flex flex-col gap-3 pl-4 mb-4'>
+                                    {item.subItems?.map((subItem, subIndex) => (
+                                        <li className='text-xl' key={subItem.url}>
+                                            <Link href={subItem.url}>
+                                                {subItem.title}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </AccordionContent>
+                            {!item.subItems &&
+                                <Link className='block py-4 font-bold text-xl' href={item.url}>{item.title}</Link>}
+                        </AccordionItem>
+                    ))}
+                </Accordion>
+                </div>
+            </SheetContent>
+        </Sheet>
+    )
 }
 
 function DektopMenu() {

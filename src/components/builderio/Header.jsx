@@ -5,7 +5,7 @@ import { Button } from '../ui/button';
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils"
 
-const aspectRatiosDesktop = {
+export const aspectRatiosDesktop = {
     "square": "sm:aspect-[1/1]",
     "3:2": "sm:aspect-[3/2]",
     "2:3": "sm:aspect-[2/3]",
@@ -16,6 +16,19 @@ const aspectRatiosDesktop = {
     "21:10": "sm:aspect-[21/10]",
     "32:9": "sm:aspect-[32/9]",
     "48:9": "sm:aspect-[48/9]",
+}
+
+export const aspectRatiosMobile = {
+    "square": "aspect-[1/1]",
+    "3:2": "aspect-[3/2]",
+    "2:3": "aspect-[2/3]",
+    "4:3": "aspect-[4/3]",
+    "16:9": "aspect-[16/9]",
+    "16:10": "aspect-[16/10]",
+    "21:9": "aspect-[21/9]",
+    "21:10": "aspect-[21/10]",
+    "32:9": "aspect-[32/9]",
+    "48:9": "aspect-[48/9]",
 }
 
 const aspectVariants = cva(

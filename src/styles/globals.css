@@ -6,6 +6,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "neue-haas-grotesk-display", sans-serif;
   font-weight: 900;
   font-style: italic;
+  @apply mb-4
 }
 
 h1 {
@@ -22,5 +23,17 @@ h3 {
 
 h4 {
   @apply sm:text-2xl text-base;
+}
+
+.text-content p{
+  @apply mb-4;
+}
+
+.text-content a {
+  @apply underline cursor-pointer text-blue-700;
+}
+
+.text-content ul{
+  @apply list-disc pl-4;
 }
 
