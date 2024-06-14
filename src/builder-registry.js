@@ -25,6 +25,48 @@ Builder.registerComponent(
 );
 
 Builder.registerComponent(
+  dynamic(() => import('./components/builderio/FaqPanel')),
+  {
+    name: 'FAQ Panel',
+    inputs: [
+      { name: 'headline', type: 'string' },
+      {
+        name: 'questions',
+        type: 'list',
+        subFields: [
+          { name: 'title', type: 'string' },
+          { name: 'content', type: 'html' },
+        ],
+      },
+    ],
+  }
+);
+
+Builder.registerComponent(
+  dynamic(() => import('./components/builderio/Carousel')),
+  {
+    name: 'Carousel',
+    canHaveChildren: true,
+    inputs: [
+      { name: 'headline', type: 'string' },
+      { name: 'isCarousel', type: 'boolean' },
+      {
+        name: 'basisDesktop',
+        type: 'string',
+        defaultValue: '1/3',
+        enum: ['1/3', '1/2', '2/3', 'full'],
+      },
+      {
+        name: 'basisMobile',
+        type: 'string',
+        defaultValue: '1/3',
+        enum: ['1/3', '1/2', '2/3', 'full'],
+      },
+    ],
+  }
+);
+
+Builder.registerComponent(
   dynamic(() => import('./components/builderio/ImageWithButton')),
   {
     name: 'ImageWithButton',

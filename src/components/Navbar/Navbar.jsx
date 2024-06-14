@@ -25,7 +25,7 @@ const menuItems = [
             {
                 title: 'Förderer',
                 subTitle: 'Wer sind unsere Förderer?',
-                url: '/feorderer'
+                url: '/forderer'
             }
         ]
     },
@@ -40,7 +40,7 @@ const menuItems = [
             {
                 title: 'Einleitung',
                 subTitle: 'Was soll das Projekt erreichen?',
-                url: '/docs/introduction'
+                url: '/docs/einleitung'
             },
             {
                 title: 'Männlichkeit',
@@ -50,7 +50,7 @@ const menuItems = [
             {
                 title: 'Nachbauen',
                 subTitle: 'Wie kann ich mitmachen?',
-                url: '/docs/build'
+                url: '/docs/nachbauen'
             },
             {
                 title: 'Alles ansehen',
@@ -87,14 +87,15 @@ function Navbar() {
 }
 
 function MobileMenu(){
+    const [isOpen, setIsOpen] = useState(false);
     return (
-        <Sheet>
+        <Sheet open={isOpen} onOpenChange={(bool) => setIsOpen(bool)}>
             <SheetTrigger className='flex items-center'>
                 <Menu size={24} />
             </SheetTrigger>
             <SheetContent side={'left'} className="pt-4">
                 <div>
-                    <Link href='/'>
+                    <Link onClick={() => setIsOpen(false)} href='/'>
                         <img className='h-6' src='/myke_logo_dark.png' alt="MYKE Logo"/>
                     </Link>
                 </div>
@@ -107,7 +108,7 @@ function MobileMenu(){
                                 <ul className='flex flex-col gap-3 pl-4 mb-4'>
                                     {item.subItems?.map((subItem, subIndex) => (
                                         <li className='text-xl' key={subItem.url}>
-                                            <Link href={subItem.url}>
+                                            <Link onClick={() => setIsOpen(false)} href={subItem.url}>
                                                 {subItem.title}
                                             </Link>
                                         </li>
@@ -115,7 +116,7 @@ function MobileMenu(){
                                 </ul>
                             </AccordionContent>
                             {!item.subItems &&
-                                <Link className='block py-4 font-bold text-xl' href={item.url}>{item.title}</Link>}
+                                <Link onClick={() => setIsOpen(false)} className='block py-4 font-bold text-xl' href={item.url}>{item.title}</Link>}
                         </AccordionItem>
                     ))}
                 </Accordion>
@@ -176,7 +177,7 @@ const ListItem = React.forwardRef(({ className, title, children, ...props }, ref
     return (
         <li>
             <NavigationMenuLink asChild>
-                <a
+                <Link
                     ref={ref}
                     className={cn(
                         "block hover:opacity-70 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
@@ -188,7 +189,7 @@ const ListItem = React.forwardRef(({ className, title, children, ...props }, ref
                     <p className="line-clamp-2 opacity-80 text-sm leading-snug text-muted-foreground">
                         {children}
                     </p>
-                </a>
+                </Link>
             </NavigationMenuLink>
         </li>
     )

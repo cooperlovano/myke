@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { BuilderComponent, builder, useIsPreviewing } from '@builder.io/react';
 import DefaultErrorPage from 'next/error';
 import Head from 'next/head';
-import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
-import '../builder-registry';
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
+import '../../builder-registry';
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
@@ -14,9 +14,9 @@ builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 export const getStaticProps = async ({ params }) => {
   // Fetch the builder content for the given page
   const page = await builder
-    .get('page', {
+    .get('documentation-page', {
       userAttributes: {
-        urlPath: '/' + (params?.page?.join('/') || ''),
+        urlPath: '/docs/' + (params?.page?.join('/') || ''),
       },
     })
     .toPromise();
@@ -50,7 +50,7 @@ export default function Page({ page }) {
       <Navbar />
       {/* Render the Builder page */}
       <div className='min-h-[90vh] max-w-screen-xl p-4 mx-auto pb-16'>
-        <BuilderComponent model='page' content={page || undefined} />
+        <BuilderComponent model='documentation-page' content={page || undefined} />
       </div>
 
       <Footer />
