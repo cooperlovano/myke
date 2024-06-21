@@ -37,3 +37,6 @@ h4 {
   @apply list-disc pl-4;
 }
 
+.dark-mode {
+  @apply bg-neutral-900 text-white;
+}

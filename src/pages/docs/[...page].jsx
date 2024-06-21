@@ -6,6 +6,7 @@ import Head from "next/head";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import "../../builder-registry";
+import DocsNavigation, { DocsNavigationButtons } from '@/components/DocsNavigation/DocsNavigation';
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
@@ -71,10 +72,20 @@ export default function Page({ page }) {
       <Head>
         <title>{page?.data?.title}</title>
       </Head>
-      <Navbar />
+      <Navbar mode={"dark"}/>
       {/* Render the Builder page */}
-      <div className='min-h-[90vh] max-w-screen-xl p-4 mx-auto'>
-        <BuilderComponent model="documentation-page" content={page || undefined} />
+      <div className='w-full dark-mode'>
+        <div className='flex'>
+          <div className='min-h-[90vh] max-w-screen-xl w-full p-4 mx-auto flex sm:flex-row flex-col'>
+            <div className='sm:w-[250px] w-full shrink-0 pt-4 max-h-[90vh] overflow-scroll pr-4'>
+              <DocsNavigation />
+            </div>
+            <div className='flex-1'>
+              <BuilderComponent model="documentation-page" content={page || undefined} />
+              <DocsNavigationButtons />
+            </div>
+          </div>
+        </div>
       </div>
 
       <Footer />

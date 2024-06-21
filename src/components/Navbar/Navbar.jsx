@@ -65,21 +65,22 @@ const menuItems = [
     },
 ]
 
-function Navbar() {
+function Navbar(props) {
+    const { mode } = props;
     return (
-        <div className='bg-white'>
+        <div className={mode === 'light' ? 'bg-white' : 'bg-neutral-900 text-white'}>
             <nav className='flex justify-between max-w-screen-xl mx-auto p-4 items-center'>
                 <div className='shrink-0 flex gap-4 items-center'>
                     <div className='sm:hidden block'><MobileMenu /></div>
                     <Link href='/'>
-                        <img className='h-6' src='/myke_logo_dark.png' alt="MYKE Logo"/>
+                        <img className='h-6' src={mode === 'light' ? '/myke_logo_dark.png' : '/myke_logo_light.png'} alt="MYKE Logo"/>
                     </Link>
                 </div>
                 <div className='flex gap-6 items-center'>
                     <div className='gap-12 hidden sm:flex'>
                         <DektopMenu />
                     </div>
-                    <Button size="sm"><Link href="/action-guide">Action Guide</Link></Button>
+                    <Button variant={mode === 'light' ? 'default': 'secondary'} size="sm"><Link href="/action-guide">Action Guide</Link></Button>
                 </div>
             </nav>
         </div>
@@ -132,7 +133,7 @@ function DektopMenu() {
             <NavigationMenuList>
                 {menuItems.map((item, index) => (
                     <NavigationMenuItem key={index}>
-                        {item.subItems && <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>}
+                        {item.subItems && <NavigationMenuTrigger className="">{item.title}</NavigationMenuTrigger>}
                         {item.subItems && <NavigationMenuContent>
                             <ul className={`grid gap-3 p-4 ${item.previewSection ? "lg:grid-cols-[.75fr_1fr] md:w-[400px] lg:w-[500px]" : "md:w-[300px]"} `}>
                                 {item.previewSection && 

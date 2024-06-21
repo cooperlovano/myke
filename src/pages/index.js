@@ -47,7 +47,7 @@ export default function Page({ page }) {
       <Head>
         <title>{page?.data?.title}</title>
       </Head>
-      <Navbar />
+      <Navbar mode={'light'} />
       {/* Render the Builder page */}
       <div className='min-h-[90vh] max-w-screen-xl p-4 mx-auto pb-16'>
         <BuilderComponent model='page' content={page || undefined} />
