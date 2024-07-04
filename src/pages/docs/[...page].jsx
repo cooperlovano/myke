@@ -7,6 +7,8 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import "../../builder-registry";
 import DocsNavigation, { DocsNavigationButtons } from '@/components/DocsNavigation/DocsNavigation';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Menu } from 'lucide-react';
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
@@ -77,9 +79,11 @@ export default function Page({ page }) {
       <div className='w-full dark-mode'>
         <div className='flex'>
           <div className='min-h-[90vh] max-w-screen-xl w-full p-4 mx-auto flex sm:flex-row flex-col'>
-            <div className='sm:w-[250px] w-full shrink-0 pt-4 max-h-[90vh] overflow-scroll pr-4'>
+            <div className='sm:w-[250px] hidden sm:block w-full shrink-0 pt-4 max-h-[90vh] overflow-scroll pr-4'>
               <DocsNavigation />
             </div>
+            <div className='block sm:hidden'><MobileNav /></div>
+            <div></div>
             <div className='flex-1'>
               <BuilderComponent model="documentation-page" content={page || undefined} />
               <DocsNavigationButtons />
@@ -91,4 +95,21 @@ export default function Page({ page }) {
       <Footer />
     </>
   );
+}
+
+function MobileNav(){
+  return (
+    <div>
+      <Sheet>
+        <SheetTrigger className='p-2 border border-neutral-500 rounded-xl flex w-full justify-center gap-2'>
+          <div>Dokumentations-Menü</div>
+          <Menu />
+        </SheetTrigger>
+        <SheetContent className="overflow-scroll">
+          <DocsNavigation />
+        </SheetContent>
+      </Sheet>
+
+    </div>
+  )
 }

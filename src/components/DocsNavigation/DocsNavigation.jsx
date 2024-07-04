@@ -150,9 +150,9 @@ export function DocsNavigationButtons(){
     const navigationLinks = findNavigationLinks(currentUrl);
 
     return (
-        <div className='max-w-xl w-full flex justify-between mx-auto gap-4'>
+        <div className='max-w-xl w-full grid grid-cols-2 gap-4 mx-auto gap-4'>
             {navigationLinks.previous ? (
-                <Link className='rounded shrink-0 border border-neutral-500 block p-2 w-1/2' href={navigationLinks.previous?.url}>
+                <Link className='rounded shrink-0 border border-neutral-500 block p-2' href={navigationLinks.previous?.url}>
                     <div>
                         <div className='text-xs opacity-50'>Vorherige Seite</div>
                         <div>{navigationLinks.previous?.title}</div>
@@ -160,13 +160,13 @@ export function DocsNavigationButtons(){
                 </Link>
             ): <div className='w-1/2'></div>}
             {navigationLinks.next ? (
-                <Link className='rounded border border-neutral-500 block p-2 w-1/2 shrink-0' href={navigationLinks.next?.url}>
+                <Link className='rounded border border-neutral-500 block p-2 shrink-0' href={navigationLinks.next?.url}>
                     <div>
                         <div className='text-xs opacity-50'>Nächste Seite</div>
                         <div>{navigationLinks.next?.title}</div>
                     </div>
                 </Link>
-            ) : <div className='w-1/2'></div>}
+            ) : <div className=''></div>}
         </div>
     );
 };
