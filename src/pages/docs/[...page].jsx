@@ -79,14 +79,18 @@ export default function Page({ page }) {
       <div className='w-full dark-mode'>
         <div className='flex'>
           <div className='min-h-[90vh] max-w-screen-xl w-full p-4 mx-auto flex sm:flex-row flex-col'>
-            <div className='sm:w-[250px] hidden sm:block w-full shrink-0 pt-4 max-h-[90vh] overflow-scroll pr-4'>
-              <DocsNavigation />
+            <div className='sm:w-[250px] hidden sm:block w-full shrink-0 pt-4 h-fulll pr-4'>
+              <div className="sticky top-4 mb-4 mt-2">
+                <DocsNavigation />
+              </div>
+
             </div>
-            <div className='block sm:hidden'><MobileNav /></div>
-            <div></div>
+            <div className='block sm:hidden sticky top-4 z-40'><MobileNav /></div>
             <div className='flex-1'>
               <BuilderComponent model="documentation-page" content={page || undefined} />
-              <DocsNavigationButtons />
+              <div className='mt-8 mb-4'>
+                <DocsNavigationButtons />
+              </div>
             </div>
           </div>
         </div>
@@ -101,7 +105,7 @@ function MobileNav(){
   return (
     <div>
       <Sheet>
-        <SheetTrigger className='p-2 border border-neutral-500 rounded-xl flex w-full justify-center gap-2'>
+        <SheetTrigger className='p-2 border mr-4 shadow-xl bg-neutral-900 z-20 border-neutral-500 rounded-xl flex w-full justify-center gap-2'>
           <div>Dokumentations-Menü</div>
           <Menu />
         </SheetTrigger>
