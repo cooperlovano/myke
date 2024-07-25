@@ -20,7 +20,13 @@ Builder.registerComponent(
   dynamic(() => import('./components/builderio/Text')),
   {
     name: 'CustomText',
-    inputs: [{ name: 'content', type: 'html' }],
+    inputs: [
+      {
+        name: 'content',
+        type: 'html',
+        toolbar: ['bold', 'italic', 'underline', 'image', 'link', 'heading'],
+      },
+    ],
   }
 );
 

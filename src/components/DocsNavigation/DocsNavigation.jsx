@@ -21,6 +21,10 @@ export const navigationItems = [
         url: '/docs/experten', 
         subItems: [
             {
+                title: 'Über unsere Experten',
+                url: '/docs/uber-unsere-experten'
+            },
+            {
                 title: 'Psychologie',
                 url: '/docs/psychologie'
             },
@@ -28,6 +32,10 @@ export const navigationItems = [
                 title: 'Kritische Männlichkeitsforschung',
                 url: '/docs/kritische-maennlichkeitsforschung'
             }, 
+            {
+                title: "Literatur",
+                url: '/docs/literatur'
+            },
             {
                 title: 'Soziologie',
                 url: '/docs/soziologie'
@@ -37,13 +45,13 @@ export const navigationItems = [
                 url: '/docs/journalismus'
             }, 
             {
-                title: "Social Media",
+                title: "Marketing",
                 url: '/docs/social-media'
             }
         ]
     },
     {
-        title: 'Über Männlichkeit',
+        title: 'Der Ansatz',
         url: '/docs/maennlichkeit',
         subItems: [
             {
@@ -61,7 +69,7 @@ export const navigationItems = [
         ]
     },
     {
-        title: 'TikTok Accounts',
+        title: 'Unsere TikTok Accounts',
         url: '/docs/tik-tok-accounts', 
         subItems: [
             {
@@ -94,6 +102,10 @@ export const navigationItems = [
         title: "Nachbauen",
         url: '/docs/nachbauen',
         subItems: [
+            {
+                title: "Überblick",
+                url: '/docs/nachbauen'
+            }, 
             {
                 title: "Wie kann ich mitmachen?",
                 url: '/docs/wie-kann-ich-mitmachen'
