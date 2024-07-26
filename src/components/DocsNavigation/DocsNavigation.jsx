@@ -17,6 +17,32 @@ export const navigationItems = [
         url: '/docs/foerderer'
     },
     {
+        title: 'Der Ansatz',
+        url: '/docs/maennlichkeit',
+        subItems: [
+            {
+                title: 'Recherche',
+                url: '/docs/recherche'
+            },
+            {
+                title: 'Strategie',
+                url: '/docs/strategie'
+            },
+            {
+                title: 'TikTok',
+                url: '/docs/tiktok'
+            },
+            {
+                title: 'Transparenz',
+                url: '/docs/transparenz'
+            },
+            {
+                title: 'Nach Projektende',
+                url: '/docs/nach-projektende'
+            },
+        ]
+    },
+    {
         title: 'Experten',
         url: '/docs/experten', 
         subItems: [
@@ -48,24 +74,6 @@ export const navigationItems = [
                 title: "Marketing",
                 url: '/docs/social-media'
             }
-        ]
-    },
-    {
-        title: 'Der Ansatz',
-        url: '/docs/maennlichkeit',
-        subItems: [
-            {
-                title: 'Status Quo',
-                url: '/docs/status-quo'
-            },
-            {
-                title: 'Maskulinismus',
-                url: '/docs/maskulinismus'
-            },
-            {
-                title: 'Unser Ansatz',
-                url: '/docs/unser-ansatz'
-            },
         ]
     },
     {
@@ -103,17 +111,13 @@ export const navigationItems = [
         url: '/docs/nachbauen',
         subItems: [
             {
-                title: "Überblick",
-                url: '/docs/nachbauen'
-            }, 
-            {
-                title: "Wie kann ich mitmachen?",
-                url: '/docs/wie-kann-ich-mitmachen'
-            }, 
-            {
                 title: "Wie geht Viralität?",
                 url: '/docs/wie-geht-viralitaet'
             },
+            {
+                title: "Themenfindung",
+                url: '/docs/themenfindung'
+            }, 
             {
                 title: 'Die "richtige" Ansprache',
                 url: '/docs/die-ansprache'
@@ -123,8 +127,8 @@ export const navigationItems = [
                 url: '/docs/videoaufbau'
             },
             {
-                title: 'Call To Action',
-                url: '/docs/call-to-action'
+                title: 'Kollaoratives Arbeiten',
+                url: '/docs/kollaboratives-arbeiten'
             }
         ]
     }
@@ -188,7 +192,7 @@ function DocsNavigation(){
 
     return (
         <div className=''>
-            <Accordion collapsible type='multiple'>
+            <Accordion collapsible type='single'>
             {navigationItems.map((item, index) => (
                     <AccordionItem className={`${item.subItems ? "border-b-0 border-t border-neutral-500" : "border-none"} `} value={item.title} key={index}>
                         {item.subItems && <AccordionTrigger className="pb-0  text-base">{item.title}</AccordionTrigger>}
