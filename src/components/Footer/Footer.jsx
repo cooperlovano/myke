@@ -7,21 +7,21 @@ const menuItems = [
         title: "Action Guide",
         subItems: [
             {
-                title: "Action Guide",
+                title: "Du brauchst Hilfe?",
                 url: "/action-guide"
             },
-            {
-                title: "Was tun bei Gewalt?",
-                url: "/gewalt"
-            },
-            {
-                title: "Was tun bei Einsamkeit?",
-                url: "/einsamkeit"
-            },
-            {
-                title: "Was tun bei Hilflosigkeit?",
-                url: "/hilflosigkeit"
-            },
+            // {
+            //     title: "Was tun bei Gewalt?",
+            //     url: "/gewalt"
+            // },
+            // {
+            //     title: "Was tun bei Einsamkeit?",
+            //     url: "/einsamkeit"
+            // },
+            // {
+            //     title: "Was tun bei Hilflosigkeit?",
+            //     url: "/hilflosigkeit"
+            // },
         ]
     },
     {
@@ -40,36 +40,40 @@ const menuItems = [
                 url: "/forderer"
             },
             {
-                title: "Expert:innen",
-                url: "/expert-innen"
+                title: "TikTok Accounts",
+                url: "/tiktok-accounts"
             }
+            // {
+            //     title: "Expert:innen",
+            //     url: "/expert-innen"
+            // }
         ]
     },
-    {
-        title: "Dokumentation",
-        subItems: [
-            {
-                title: "Dokumentation ansehen",
-                url: "/docs"
-            },
-            {
-                title: "Untersuchung",
-                url: "/docs/untersuchung"
-            },
-            {
-                title: "Ergebnisse",
-                url: "/docs/ergebnisse"
-            },
-            {
-                title: "Accounts",
-                url: "/docs/accounts"
-            },
-            {
-                title: "Nachbauen",
-                url: "/docs/build"
-            }
-        ]
-    },
+    // {
+    //     title: "Dokumentation",
+    //     subItems: [
+    //         {
+    //             title: "Dokumentation ansehen",
+    //             url: "/docs"
+    //         },
+    //         {
+    //             title: "Untersuchung",
+    //             url: "/docs/untersuchung"
+    //         },
+    //         {
+    //             title: "Ergebnisse",
+    //             url: "/docs/ergebnisse"
+    //         },
+    //         {
+    //             title: "Accounts",
+    //             url: "/docs/accounts"
+    //         },
+    //         {
+    //             title: "Nachbauen",
+    //             url: "/docs/build"
+    //         }
+    //     ]
+    // },
     {
         title: "Rechtliches",
         subItems: [
@@ -97,7 +101,7 @@ function Footer() {
     return (
         <div>
             <footer className='bg-neutral-800 text-white py-12'>
-                <div className='max-w-screen-xl mx-auto p-4 grid md:grid-cols-2 grid-cols-1 lg:grid-cols-4 gap-6 py-'>
+                <div className='max-w-screen-xl mx-auto p-4 grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-6 py-'>
                     {menuItems.map((item, index) => (
                         <div key={index} className='mb-4'>
                             <span className='font-bold block mb-4'>{item.title}</span>

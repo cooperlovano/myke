@@ -53,12 +53,12 @@ function Header(props){
                         <h1 className='mb-2 leading-tight'>{title}</h1>
                         <p className='mb-8'>{subTitle}</p>
                         <div className='flex flex-wrap gap-4'>
-                            <Button variant={"secondary"}>
+                            {primaryButton?.url && <Button variant={"secondary"}>
                                 <Link href={primaryButton?.url || "#"}>{primaryButton?.label}</Link>
-                            </Button>
-                            <Button variant={"outline"} className="text-white bg-transparent hover:bg-transparent hover:text-white hover:opacity-70">
+                            </Button>}
+                            {secondaryButton?.url && <Button variant={"outline"} className="text-white bg-transparent hover:bg-transparent hover:text-white hover:opacity-70">
                                 <Link href={secondaryButton?.url || "#"}>{secondaryButton?.label}</Link>
-                            </Button>
+                            </Button>}
                         </div>
                     </div>
                 </div>

@@ -19,46 +19,50 @@ const menuItems = [
             },
             {
                 title: 'Unsere Mission',
-                subTitle: 'Was ist unsere Mission?',
+                subTitle: 'Warum das Ganze?',
                 url: '/mission'
             },
             {
                 title: 'Förderer',
-                subTitle: 'Wer sind unsere Förderer?',
+                subTitle: 'Wer hat uns unterstützt?',
                 url: '/forderer'
-            }
+            },
         ]
     },
     {
-        title: 'Dokumentation',
-        // previewSection: {
-        //     title: 'Dokumentation',
-        //     subTitle: 'Über unsere Forschungsergebnisse',
-        //     url: '/docs'
-        // },
-        subItems: [
-            {
-                title: 'Einleitung',
-                subTitle: 'Was soll das Projekt erreichen?',
-                url: '/docs/einleitung'
-            },
-            {
-                title: 'Männlichkeit',
-                subTitle: 'Wo fangen wir an?',
-                url: '/docs/status-quo'
-            },
-            {
-                title: 'Nachbauen',
-                subTitle: 'Wie kann ich mitmachen?',
-                url: '/docs/nachbauen'
-            },
-            {
-                title: 'Alles ansehen',
-                subTitle: 'gesamte Dokumentation anzeigen',
-                url: '/docs'
-            },
-        ]
+        title: 'TikTok Accounts',
+        url: '/tiktok-accounts'
     },
+    // {
+    //     title: 'Dokumentation',
+    //     // previewSection: {
+    //     //     title: 'Dokumentation',
+    //     //     subTitle: 'Über unsere Forschungsergebnisse',
+    //     //     url: '/docs'
+    //     // },
+    //     subItems: [
+    //         {
+    //             title: 'Einleitung',
+    //             subTitle: 'Was soll das Projekt erreichen?',
+    //             url: '/docs/einleitung'
+    //         },
+    //         {
+    //             title: 'Männlichkeit',
+    //             subTitle: 'Wo fangen wir an?',
+    //             url: '/docs/status-quo'
+    //         },
+    //         {
+    //             title: 'Nachbauen',
+    //             subTitle: 'Wie kann ich mitmachen?',
+    //             url: '/docs/nachbauen'
+    //         },
+    //         {
+    //             title: 'Alles ansehen',
+    //             subTitle: 'gesamte Dokumentation anzeigen',
+    //             url: '/docs'
+    //         },
+    //     ]
+    // },
     {
         title: 'FAQ',
         url: "/faq"
