@@ -51,7 +51,7 @@ function ImageWithButton(props){
                             <div className='text-3xl sm:text-5xl font-neue-haas-grotesk italic font-bold text-center w-full'>{headline}</div>
                         </div>
                         <div className='text-center'>
-                            {mounted && button?.url && <Button variant={button?.buttonType}>{button?.label} </Button>}
+                            {mounted && button?.url && button?.label && <Button variant={button?.buttonType}>{button?.label} </Button>}
                         </div>
                     </div>
                 </div>

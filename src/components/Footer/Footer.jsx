@@ -81,14 +81,14 @@ const menuItems = [
                 title: "Impressum",
                 url: "/impressum"
             },
-            {
-                title: "Kontakt",
-                url: "/contact"
-            },
-            {
-                title: "Privatssphäre",
-                url: "/privacy"
-            },
+            // {
+            //     title: "Kontakt",
+            //     url: "/contact"
+            // },
+            // {
+            //     title: "Privatssphäre",
+            //     url: "/privacy"
+            // },
         ]
     }
 ]
