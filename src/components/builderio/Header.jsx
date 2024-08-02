@@ -63,7 +63,7 @@ function Header(props){
                     </div>
                 </div>
                 <div className='sm:flex-1 h-full sm:order-2 order-1'>
-                    <div className='sm:h-full w-full overflow-hidden'>
+                    <div className='sm:h-full w-full overflow-hidden aspect-[1/1]'>
                         <img src={image + "?width=700"} alt={title} className='object-cover h-full' />
                     </div>
                 </div>

@@ -10,6 +10,10 @@ const menuItems = [
                 title: "Du brauchst Hilfe?",
                 url: "/action-guide"
             },
+            {
+                title: "Beratungsstellen",
+                url: "/beratungsstellen"
+            }
             // {
             //     title: "Was tun bei Gewalt?",
             //     url: "/gewalt"
