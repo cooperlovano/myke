@@ -121,6 +121,20 @@ function Footer() {
                         </div>
                     ))}
                 </div>
+                <div className='max-w-screen-xl mx-auto p-4 flex gap-4'>
+                    <a target='_blank' href='https://www.kulturstiftung-des-bundes.de/de'>
+                        <div>
+                            <span className='text-xs'>Gefördert durch</span>
+                            <img className='h-20 m-4' src="Logo_KSB_SW_JPG.jpg"/>
+                        </div>
+                    </a>
+
+                    <div>
+                        <span className='text-xs'>Gefördert von</span>
+                        <img className='h-20 m-4' src="BKM_2017_WebSVG_de.svg"/>
+                    </div>
+
+                </div>
                 <div className='max-w-screen-xl mx-auto p-4'>&copy; MYKE {getCurrentYear()} - eine Produktion des onlinetheater.live</div>
             </footer>
         </div>
