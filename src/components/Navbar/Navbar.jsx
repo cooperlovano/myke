@@ -14,25 +14,21 @@ const menuItems = [
         subItems: [
             {
                 title: 'Unser Team',
-                subTitle: 'Wer steckt hinter MYKE?',
+                // subTitle: 'Wer steckt hinter MYKE?',
                 url: '/team'
             },
             {
                 title: 'Unsere Mission',
-                subTitle: 'Warum das Ganze?',
+                // subTitle: 'Warum das Ganze?',
                 url: '/mission'
             },
             {
-                title: 'Förderer',
-                subTitle: 'Wer hat uns unterstützt?',
-                url: '/forderer'
+                title: 'TikTok Accounts',
+                url: '/tiktok-accounts'
             },
         ]
     },
-    {
-        title: 'TikTok Accounts',
-        url: '/tiktok-accounts'
-    },
+
     // {
     //     title: 'Dokumentation',
     //     // previewSection: {
@@ -84,7 +80,7 @@ function Navbar(props) {
                     <div className='gap-12 hidden sm:flex'>
                         <DektopMenu />
                     </div>
-                    <Button variant={mode === 'light' ? 'default': 'secondary'} size="sm"><Link href="/action-guide">Action Guide</Link></Button>
+                    <Button variant={mode === 'light' ? 'default': 'secondary'} size="sm"><Link href="/beratungsstellen">Action Guide</Link></Button>
                 </div>
             </nav>
         </div>

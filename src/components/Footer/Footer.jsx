@@ -39,10 +39,10 @@ const menuItems = [
                 title: "Mission",
                 url: "/mission"
             },
-            {
-                title: "Förderer",
-                url: "/forderer"
-            },
+            // {
+            //     title: "Förderer",
+            //     url: "/forderer"
+            // },
             {
                 title: "TikTok Accounts",
                 url: "/tiktok-accounts"
@@ -125,13 +125,13 @@ function Footer() {
                     <a target='_blank' href='https://www.kulturstiftung-des-bundes.de/de'>
                         <div>
                             <span className='text-xs'>Gefördert durch</span>
-                            <img className='sm:h-20 h-14 m-4' src="Logo_KSB_SW_JPG.jpg"/>
+                            <img className='sm:h-20 h-14 m-4' src="/Logo_KSB_SW_JPG.jpg"/>
                         </div>
                     </a>
 
                     <div>
                         <span className='text-xs'>Gefördert von</span>
-                        <img className='sm:h-20 h-14 m-4' src="BKM_2017_WebSVG_de.svg"/>
+                        <img className='sm:h-20 h-14 m-4' src="/BKM_2017_WebSVG_de.svg"/>
                     </div>
 
                 </div>
