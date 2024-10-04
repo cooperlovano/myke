@@ -6,10 +6,10 @@ const menuItems = [
     {
         title: "Action Guide",
         subItems: [
-            {
-                title: "Du brauchst Hilfe?",
-                url: "/action-guide"
-            },
+            // {
+            //     title: "Du brauchst Hilfe?",
+            //     url: "/action-guide"
+            // },
             {
                 title: "Beratungsstellen",
                 url: "/beratungsstellen"
