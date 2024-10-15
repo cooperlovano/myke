@@ -9,6 +9,7 @@ import "../../builder-registry";
 import DocsNavigation, { DocsNavigationButtons } from '@/components/DocsNavigation/DocsNavigation';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
+import { navigationItems } from '@/components/DocsNavigation/DocsNavigation';
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
@@ -60,6 +61,31 @@ export default function Page({ page }) {
   const router = useRouter();
   const isPreviewing = useIsPreviewing();
 
+  console.log(navigationItems)
+
+  console.log(router)
+
+  // Function to find the title based on the current path
+  const findTitle = (path) => {
+    // Search in navigation items
+    for (let item of navigationItems) {
+      if (item.url === path) {
+        return item.title;
+      }
+      // Check subItems if they exist
+      if (item.subItems) {
+        for (let subItem of item.subItems) {
+          if (subItem.url === path) {
+            return subItem.title;
+          }
+        }
+      }
+    }
+    return 'Default Title'; // Default title if not found
+  };
+
+  const title = findTitle(router.asPath);
+
 
   // If the page content is not available
   // and not in preview mode, show a 404 error page
@@ -67,12 +93,13 @@ export default function Page({ page }) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
+
   // If the page content is available, render
   // the BuilderComponent with the page content
   return (
     <>
       <Head>
-        <title>MYKE - {page?.data?.title}</title>
+        <title>MYKE - {title}</title>
       </Head>
       <Navbar mode={"dark"}/>
       {/* Render the Builder page */}

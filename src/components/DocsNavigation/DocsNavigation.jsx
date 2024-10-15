@@ -18,7 +18,7 @@ export const navigationItems = [
     },
     {
         title: 'Accounts',
-        url: '/docs/alex-new-mindset',
+        url: '/docs/accounts',
         subItems: [
             {
                 title: '@alex.new.mindset',

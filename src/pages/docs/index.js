@@ -46,7 +46,7 @@ export default function Page({ page }) {
   return (
     <>
       <Head>
-        <title>MYKE - {page?.data?.title}</title>
+        <title>MYKE - Dokumentation</title>
       </Head>
       <Navbar mode={'dark'} />
       {/* Render the Builder page */}
