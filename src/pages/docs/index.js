@@ -5,7 +5,7 @@ import DefaultErrorPage from 'next/error';
 import Head from 'next/head';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
-import DocsNavigation from '@/components/DocsNavigation/DocsNavigation';
+import DocsNavigation, { DocsNavigationButtons } from '@/components/DocsNavigation/DocsNavigation';
 import '../../builder-registry';
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
@@ -17,7 +17,7 @@ export const getStaticProps = async ({ params }) => {
   const page = await builder
     .get('documentation-page', {
       userAttributes: {
-        urlPath: '/docs/' + (params?.page?.join('/') || ''),
+        urlPath: '/docs/',
       },
     })
     .toPromise();
@@ -58,6 +58,10 @@ export default function Page({ page }) {
             </div>
             <div className='flex-1'>
               <BuilderComponent model='documentation-page' content={page || undefined} />
+
+              <div className='mt-8 mb-4'>
+                <DocsNavigationButtons />
+              </div>
             </div>
           </div>
         </div>

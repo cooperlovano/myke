@@ -5,133 +5,47 @@ import Link from 'next/link';
 
 export const navigationItems = [
     {
+        title: 'Start',
+        url: '/docs'
+    },
+    {
         title: 'Einleitung',
         url: '/docs/einleitung'
     },
     {
-        title: 'Team',
-        url: '/docs/team'
+        title: 'Das haben wir gemacht',
+        url: '/docs/das-haben-wir-gemacht'
     },
     {
-        title: 'Förderer',
-        url: '/docs/foerderer'
-    },
-    {
-        title: 'Der Ansatz',
-        url: '/docs/maennlichkeit',
+        title: 'Accounts',
+        url: '/docs/alex-new-mindset',
         subItems: [
             {
-                title: 'Recherche',
-                url: '/docs/recherche'
+                title: '@alex.new.mindset',
+                url: '/docs/alex-new-mindset'
             },
             {
-                title: 'Strategie',
-                url: '/docs/strategie'
-            },
-            {
-                title: 'TikTok',
-                url: '/docs/tiktok'
-            },
-            {
-                title: 'Transparenz',
-                url: '/docs/transparenz'
-            },
-            {
-                title: 'Nach Projektende',
-                url: '/docs/nach-projektende'
-            },
-        ]
-    },
-    {
-        title: 'Experten',
-        url: '/docs/experten', 
-        subItems: [
-            {
-                title: 'Über unsere Experten',
-                url: '/docs/uber-unsere-experten'
-            },
-            {
-                title: 'Psychologie',
-                url: '/docs/psychologie'
-            },
-            {
-                title: 'Kritische Männlichkeitsforschung',
-                url: '/docs/kritische-maennlichkeitsforschung'
-            }, 
-            {
-                title: "Literatur",
-                url: '/docs/literatur'
-            },
-            {
-                title: 'Soziologie',
-                url: '/docs/soziologie'
-            },
-            {
-                title: 'Journalismus',
-                url: '/docs/journalismus'
-            }, 
-            {
-                title: "Marketing",
-                url: '/docs/social-media'
-            }
-        ]
-    },
-    {
-        title: 'Unsere TikTok Accounts',
-        url: '/docs/tik-tok-accounts', 
-        subItems: [
-            {
-                title: "Cringe Tok",
-                url: '/docs/cringe-tok'
-            },
-            {
-                title: "Küche und Konsens",
-                url: '/docs/kueche-und-konsens'
-            },
-            {
-                title: "Alex (Coach)",
-                url: '/docs/alex-coach'
-            },
-            {
-                title: "Mufasa",
-                url: '/docs/mufasa'
-            },
-            {
-                title: "Wohin von hier?",
+                title: '@wohin_von_hier',
                 url: '/docs/wohin-von-hier'
             },
             {
-                title: "Blumen für Männer",
-                url: '/docs/blumen-fuer-meanner'
-            }
+                title: '@donk507',
+                url: '/docs/don-k'
+            },
+            {
+                title: 'Andere Accounts',
+                url: '/docs/andere-accounts'
+            },
         ]
     },
     {
-        title: "Nachbauen",
-        url: '/docs/nachbauen',
-        subItems: [
-            {
-                title: "Wie geht Viralität?",
-                url: '/docs/wie-geht-viralitaet'
-            },
-            {
-                title: "Themenfindung",
-                url: '/docs/themenfindung'
-            }, 
-            {
-                title: 'Die "richtige" Ansprache',
-                url: '/docs/die-ansprache'
-            }, 
-            {
-                title: 'Videoaufbau',
-                url: '/docs/videoaufbau'
-            },
-            {
-                title: 'Kollaoratives Arbeiten',
-                url: '/docs/kollaboratives-arbeiten'
-            }
-        ]
-    }
+        title: 'Das haben wir gelernt',
+        url: '/docs/das-haben-wir-gelernt'
+    },
+    {
+        title: 'Team und Förderer',
+        url: '/docs/team-und-forderer'
+    },
     
 ];
 
@@ -194,7 +108,7 @@ function DocsNavigation(){
         <div className=''>
             <Accordion collapsible type='single'>
             {navigationItems.map((item, index) => (
-                    <AccordionItem className={`${item.subItems ? "border-b-0 border-t border-neutral-500" : "border-none"} `} value={item.title} key={index}>
+                    <AccordionItem className={`${item.subItems ? "border-b mb-4 border-t border-neutral-500" : "border-none"} `} value={item.title} key={index}>
                         {item.subItems && <AccordionTrigger className="pb-0  text-base">{item.title}</AccordionTrigger>}
                         <AccordionContent>
                             <ul className='flex flex-col gap-3 pl-4 mb-4'>
