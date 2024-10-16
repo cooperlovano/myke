@@ -26,6 +26,10 @@ const menuItems = [
                 title: 'TikTok Accounts',
                 url: '/tiktok-accounts'
             },
+            {
+                title: 'Dokumentation',
+                url: '/docs'
+            },
         ]
     },
 
