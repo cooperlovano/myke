@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState} from "react";
 import { useRouter } from "next/router";
 import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
 import DefaultErrorPage from "next/error";
@@ -110,9 +110,8 @@ export default function Page({ page }) {
               <div className="sticky top-4 mb-4 mt-2">
                 <DocsNavigation />
               </div>
-
             </div>
-            <div className='block sm:hidden sticky top-4 z-40'><MobileNav /></div>
+            {/* <div className='block sm:hidden sticky top-4 z-40'><MobileNav /></div> */}
             <div className='flex-1'>
               <BuilderComponent model="documentation-page" content={page || undefined} />
               <div className='mt-8 mb-4'>
@@ -128,16 +127,17 @@ export default function Page({ page }) {
   );
 }
 
-function MobileNav(){
+export function MobileNavDocs(){
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
-      <Sheet>
-        <SheetTrigger className='p-2 border mr-4 shadow-xl bg-neutral-900 z-20 border-neutral-500 rounded-xl flex w-full justify-center gap-2'>
-          <div>Dokumentations-Menü</div>
+      <Sheet open={isOpen} onOpenChange={(bool) => setIsOpen(bool)}>
+        <SheetTrigger className='h-full grid items-center'>
           <Menu />
         </SheetTrigger>
-        <SheetContent className="overflow-scroll">
-          <DocsNavigation />
+        <SheetContent side="left" className="overflow-scroll">
+          <div className='mb-8 -mt-3'>Dokumentation</div>
+          <DocsNavigation setIsOpen={setIsOpen}/>
         </SheetContent>
       </Sheet>
 

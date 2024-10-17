@@ -7,6 +7,9 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuList, NavigationMe
 import { List, Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
+import { useRouter } from 'next/router';
+import DocsNavigation from '../DocsNavigation/DocsNavigation';
+import { MobileNavDocs } from '@/pages/docs/[...page]';
 
 const menuItems = [
     {
@@ -71,11 +74,15 @@ const menuItems = [
 
 function Navbar(props) {
     const { mode } = props;
+    const { pathname } = useRouter();
+
+    console.log(pathname)
     return (
         <div className={mode === 'light' ? 'bg-white' : 'bg-neutral-900 text-white'}>
             <nav className='flex justify-between max-w-screen-xl mx-auto p-4 items-center'>
                 <div className='shrink-0 flex gap-4 items-center'>
-                    <div className='sm:hidden block'><MobileMenu /></div>
+                    <div className='sm:hidden block'>
+                    {pathname.startsWith("/docs") ? <MobileNavDocs /> : <MobileMenu />}</div>
                     <Link href='/'>
                         <img className='h-6' src={mode === 'light' ? '/myke_logo_dark.png' : '/myke_logo_light.png'} alt="MYKE Logo"/>
                     </Link>
@@ -84,7 +91,11 @@ function Navbar(props) {
                     <div className='gap-12 hidden sm:flex'>
                         <DektopMenu />
                     </div>
-                    <Button variant={mode === 'light' ? 'default': 'secondary'} size="sm"><Link href="/beratungsstellen">Action Guide</Link></Button>
+                    {pathname.startsWith("/docs") ? 
+                        <Button variant={mode === 'light' ? 'default': 'secondary'} size="sm"><Link href="/">zu myke.fyi</Link></Button> :
+                        <Button variant={mode === 'light' ? 'default': 'secondary'} size="sm"><Link href="/beratungsstellen">Action Guide</Link></Button>
+                    }
+                    
                 </div>
             </nav>
         </div>

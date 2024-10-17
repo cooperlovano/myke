@@ -101,8 +101,8 @@ export function DocsNavigationButtons(){
     );
 };
 
-function DocsNavigation(){
-    const [isOpen, setIsOpen] = useState(false);
+function DocsNavigation({setIsOpen}){
+
 
     return (
         <div className=''>
@@ -113,8 +113,8 @@ function DocsNavigation(){
                         <AccordionContent>
                             <ul className='flex flex-col gap-3 pl-4 mb-4'>
                                 {item.subItems?.map((subItem, subIndex) => (
-                                    <li className='' key={subItem.url}>
-                                        <Link className='opacity-60' onClick={() => setIsOpen(false)} href={subItem.url}>
+                                    <li onClick={() => setIsOpen(false)} className='' key={subItem.url}>
+                                        <Link className='opacity-60'  href={subItem.url}>
                                             {subItem.title}
                                         </Link>
                                     </li>

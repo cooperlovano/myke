@@ -53,9 +53,9 @@ export default function Page({ page }) {
       <div className='w-full dark-mode'>
         <div className='flex'>
           <div className='min-h-[90vh] max-w-screen-xl w-full p-4 mx-auto flex sm:flex-row flex-col'>
-            <div className='sm:w-[250px] w-full shrink-0 pt-4 max-h-[90vh] overflow-scroll '>
+            {/* <div className='sm:w-[250px] w-full shrink-0 pt-4 max-h-[90vh] overflow-scroll '>
               <DocsNavigation />
-            </div>
+            </div> */}
             <div className='flex-1'>
               <BuilderComponent model='documentation-page' content={page || undefined} />
 
