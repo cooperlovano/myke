@@ -113,7 +113,7 @@ function DocsNavigation({setIsOpen}){
                         <AccordionContent>
                             <ul className='flex flex-col gap-3 pl-4 mb-4'>
                                 {item.subItems?.map((subItem, subIndex) => (
-                                    <li onClick={() => setIsOpen(false)} className='' key={subItem.url}>
+                                    <li onClick={() => setIsOpen && setIsOpen(false)} className='' key={subItem.url}>
                                         <Link className='opacity-60'  href={subItem.url}>
                                             {subItem.title}
                                         </Link>
@@ -122,7 +122,7 @@ function DocsNavigation({setIsOpen}){
                             </ul>
                         </AccordionContent>
                         {!item.subItems &&
-                        <Link onClick={() => setIsOpen(false)} className='block pb-4 font-bold cursor-pointer' href={item.url}>{item.title}</Link>}
+                        <Link onClick={() => setIsOpen && setIsOpen(false)} className='block pb-4 font-bold cursor-pointer' href={item.url}>{item.title}</Link>}
                     </AccordionItem>
                 ))}
             </Accordion>
