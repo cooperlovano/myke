@@ -105,7 +105,7 @@ const menuItems = [
 function Footer() {
     const { pathname } = useRouter();
 
-    console.log(pathname)
+    // console.log(pathname)
 
     function getCurrentYear() {
         return new Date().getFullYear();

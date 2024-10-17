@@ -76,7 +76,7 @@ function Navbar(props) {
     const { mode } = props;
     const { pathname } = useRouter();
 
-    console.log(pathname)
+    // console.log(pathname)
     return (
         <div className={mode === 'light' ? 'bg-white' : 'bg-neutral-900 text-white'}>
             <nav className='flex justify-between max-w-screen-xl mx-auto p-4 items-center'>
