@@ -16,7 +16,7 @@ builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 // Define a function that fetches the Builder
 // content for a given page
 export const getStaticProps = async ({ params }) => {
-  console.log("/docs/" + (params?.page?.join("/") || ""))
+  // console.log("/docs/" + (params?.page?.join("/") || ""))
   // Fetch the builder content for the given page
   const page = await builder
     .get("documentation-page", {
@@ -61,9 +61,9 @@ export default function Page({ page }) {
   const router = useRouter();
   const isPreviewing = useIsPreviewing();
 
-  console.log(navigationItems)
+  // console.log(navigationItems)
 
-  console.log(router)
+  // console.log(router)
 
   // Function to find the title based on the current path
   const findTitle = (path) => {
