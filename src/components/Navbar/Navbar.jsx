@@ -88,9 +88,11 @@ function Navbar(props) {
                     </Link>
                 </div>
                 <div className='flex gap-6 items-center'>
-                    <div className='gap-12 hidden sm:flex'>
-                        <DektopMenu />
-                    </div>
+                    {!pathname.startsWith("/docs") &&
+                        <div className='gap-12 hidden sm:flex'>
+                            <DektopMenu />
+                        </div>
+                    }
                     {pathname.startsWith("/docs") ? 
                         <Button variant={mode === 'light' ? 'default': 'secondary'} size="sm"><Link href="/">zu myke.fyi</Link></Button> :
                         <Button variant={mode === 'light' ? 'default': 'secondary'} size="sm"><Link href="/beratungsstellen">Action Guide</Link></Button>
