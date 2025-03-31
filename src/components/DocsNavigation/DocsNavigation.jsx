@@ -1,133 +1,162 @@
-import React, { useState} from 'react';
-import { useRouter } from 'next/router';
-import { Accordion, AccordionItem, AccordionContent, AccordionTrigger } from '../ui/accordion';
-import Link from 'next/link';
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import { Accordion, AccordionItem, AccordionContent, AccordionTrigger } from "../ui/accordion";
+import Link from "next/link";
+import translations from "@/lib/translations";
 
+// Navigation structure
 export const navigationItems = [
-    {
-        title: 'Start',
-        url: '/docs'
-    },
-    {
-        title: 'Einleitung',
-        url: '/docs/einleitung'
-    },
-    {
-        title: 'Das haben wir gemacht',
-        url: '/docs/das-haben-wir-gemacht'
-    },
-    {
-        title: 'Accounts',
-        url: '/docs/accounts',
-        subItems: [
-            {
-                title: '@alex.new.mindset',
-                url: '/docs/alex-new-mindset'
-            },
-            {
-                title: '@wohin_von_hier',
-                url: '/docs/wohin-von-hier'
-            },
-            {
-                title: '@donk507',
-                url: '/docs/don-k'
-            },
-            {
-                title: 'Andere Accounts',
-                url: '/docs/andere-accounts'
-            },
-        ]
-    },
-    {
-        title: 'Das haben wir gelernt',
-        url: '/docs/das-haben-wir-gelernt'
-    },
-    {
-        title: 'Team und Förderer',
-        url: '/docs/team-und-forderer'
-    },
-    
+  { key: "start", url: "/docs" },
+  { key: "introduction", url: "/docs/einleitung" },
+  { key: "what_we_did", url: "/docs/das-haben-wir-gemacht" },
+  {
+    key: "accounts",
+    url: "/docs/accounts",
+    subItems: [
+      { key: "alex", url: "/docs/alex-new-mindset" },
+      { key: "wohin", url: "/docs/wohin-von-hier" },
+      { key: "donk", url: "/docs/don-k" },
+      { key: "other_accounts", url: "/docs/andere-accounts" },
+    ],
+  },
+  { key: "what_we_learned", url: "/docs/das-haben-wir-gelernt" },
+  { key: "team", url: "/docs/team-und-forderer" },
 ];
 
+const getLocalizedNavigation = (locale) => {
+  return navigationItems.map((item) => ({
+    ...item,
+    title: translations[locale]?.navigation?.[item.key] ?? item.title,
+    subItems: item.subItems?.map((subItem) => ({
+      ...subItem,
+      title: translations[locale]?.navigation?.[subItem.key] ?? subItem.title,
+    })),
+  }));
+};
+
 const flattenNavigation = (items) => {
-    return items.reduce((acc, item) => {
-        if (item.subItems) {
-            acc.push(...item.subItems);
-        } else {
-            acc.push(item);
-        }
-        return acc;
-    }, []);
+  return items.reduce((acc, item) => {
+    if (item.subItems) {
+      acc.push(...item.subItems);
+    } else {
+      acc.push(item);
+    }
+    return acc;
+  }, []);
 };
 
-const flattenedNavigation = flattenNavigation(navigationItems);
+const findNavigationLinks = (currentUrl, navItems, locale) => {
+  const localizedNav = navItems.map((item) => ({
+    ...item,
+    url: `/${locale}${item.url}`.replace(/\/{2,}/g, "/"),
+  }));
 
-const findNavigationLinks = (currentUrl) => {
-    const currentIndex = flattenedNavigation.findIndex(item => item.url === currentUrl);
-    const previousItem = currentIndex > 0 ? flattenedNavigation[currentIndex - 1] : null;
-    const nextItem = currentIndex < flattenedNavigation.length - 1 ? flattenedNavigation[currentIndex + 1] : null;
+  const flattenedNavigation = flattenNavigation(localizedNav);
+  const formattedCurrentUrl = `/${locale}${currentUrl}`.replace(/\/{2,}/g, "/");
+  const currentIndex = flattenedNavigation.findIndex((item) => item.url === formattedCurrentUrl);
 
-    return {
-        previous: previousItem ? previousItem : null,
-        next: nextItem ? nextItem : null
-    };
+  if (currentIndex === -1) {
+    return { previous: null, next: null };
+  }
+
+  const previousItem = currentIndex > 0 ? flattenedNavigation[currentIndex - 1] : null;
+  const nextItem = currentIndex < flattenedNavigation.length - 1 ? flattenedNavigation[currentIndex + 1] : null;
+
+  return {
+    previous: previousItem || null,
+    next: nextItem || null,
+  };
 };
 
-export function DocsNavigationButtons(){
-    const router = useRouter();
-    const currentUrl = router.asPath;
+export function DocsNavigationButtons() {
+  const router = useRouter();
+  const { locale } = router;
+  const currentUrl = router.asPath;
+  const navigationLinks = findNavigationLinks(currentUrl, getLocalizedNavigation(locale), locale);
 
-    const navigationLinks = findNavigationLinks(currentUrl);
-
-    return (
-        <div className='max-w-xl w-full grid grid-cols-2 gap-4 mx-auto gap-4'>
-            {navigationLinks.previous ? (
-                <Link className='rounded shrink-0 border border-neutral-500 block p-2' href={navigationLinks.previous?.url}>
-                    <div>
-                        <div className='text-xs opacity-50'>Vorherige Seite</div>
-                        <div>{navigationLinks.previous?.title}</div>
-                    </div>
-                </Link>
-            ): <div className='w-1/2'></div>}
-            {navigationLinks.next ? (
-                <Link className='rounded border border-neutral-500 block p-2 shrink-0' href={navigationLinks.next?.url}>
-                    <div>
-                        <div className='text-xs opacity-50'>Nächste Seite</div>
-                        <div>{navigationLinks.next?.title}</div>
-                    </div>
-                </Link>
-            ) : <div className=''></div>}
-        </div>
-    );
-};
-
-function DocsNavigation({setIsOpen}){
-
-
-    return (
-        <div className=''>
-            <Accordion collapsible type='single'>
-            {navigationItems.map((item, index) => (
-                    <AccordionItem className={`${item.subItems ? "border-b mb-4 border-t border-neutral-500" : "border-none"} `} value={item.title} key={index}>
-                        {item.subItems && <AccordionTrigger className="pb-0  text-base">{item.title}</AccordionTrigger>}
-                        <AccordionContent>
-                            <ul className='flex flex-col gap-3 pl-4 mb-4'>
-                                {item.subItems?.map((subItem, subIndex) => (
-                                    <li onClick={() => setIsOpen && setIsOpen(false)} className='' key={subItem.url}>
-                                        <Link className='opacity-60'  href={subItem.url}>
-                                            {subItem.title}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </AccordionContent>
-                        {!item.subItems &&
-                        <Link onClick={() => setIsOpen && setIsOpen(false)} className='block pb-4 font-bold cursor-pointer' href={item.url}>{item.title}</Link>}
-                    </AccordionItem>
-                ))}
-            </Accordion>
-        </div>
-    )
+  return (
+    <div className="max-w-xl w-full grid grid-cols-2 gap-4 mx-auto">
+      {navigationLinks.previous ? (
+        <Link className="rounded shrink-0 border border-neutral-500 block p-2" href={navigationLinks.previous.url}>
+          <div>
+            <div className="text-xs opacity-50">
+              {translations[locale]?.buttons?.previous ?? translations["en"].buttons.previous}
+            </div>
+            <div>{navigationLinks.previous.title}</div>
+          </div>
+        </Link>
+      ) : (
+        <div className="w-1/2"></div>
+      )}
+      {navigationLinks.next ? (
+        <Link className="rounded border border-neutral-500 block p-2 shrink-0" href={navigationLinks.next.url}>
+          <div>
+            <div className="text-xs opacity-50">
+              {translations[locale]?.buttons?.next ?? translations["en"].buttons.next}
+            </div>
+            <div>{navigationLinks.next.title}</div>
+          </div>
+        </Link>
+      ) : (
+        <div className=""></div>
+      )}
+    </div>
+  );
 }
 
-export default DocsNavigation
+function DocsNavigation({ setIsOpen }) {
+  const router = useRouter();
+  const { locale, asPath } = router;
+  const localizedNavigation = getLocalizedNavigation(locale);
+
+  return (
+    <div>
+      <Accordion collapsible type="single">
+        {localizedNavigation.map((item, index) => {
+          const isActive = asPath === item.url;
+          return (
+            <AccordionItem
+              className={`${item.subItems ? "border-b mb-4 border-t border-neutral-500" : "border-none"} `}
+              value={item.title}
+              key={index}
+            >
+              {item.subItems && <AccordionTrigger className="pb-0 text-base">{item.title}</AccordionTrigger>}
+              <AccordionContent>
+                <ul className="flex flex-col gap-3 pl-4 mb-4">
+                  {item.subItems?.map((subItem) => {
+                    const isSubActive = asPath === subItem.url;
+                    return (
+                      <li onClick={() => setIsOpen && setIsOpen(false)} key={subItem.url}>
+                        <Link
+                          className={`opacity-60 flex items-center gap-2 ${isSubActive ? "text-white" : ""}`}
+                          href={subItem.url}
+                        >
+                          {isSubActive && <div className="w-2 h-2 rounded-full bg-white" />}
+                          {subItem.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </AccordionContent>
+              {!item.subItems && (
+                <Link
+                  onClick={() => setIsOpen && setIsOpen(false)}
+                  className={`block pb-4 font-bold cursor-pointer flex items-center gap-2 ${
+                    isActive ? "text-white" : ""
+                  }`}
+                  href={item.url}
+                >
+                  {isActive && <div className="w-2 h-2 rounded-full bg-white" />}
+                  {item.title}
+                </Link>
+              )}
+            </AccordionItem>
+          );
+        })}
+      </Accordion>
+    </div>
+  );
+}
+
+export default DocsNavigation;
