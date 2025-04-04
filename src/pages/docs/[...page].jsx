@@ -13,27 +13,31 @@ import { navigationItems } from '@/components/DocsNavigation/DocsNavigation';
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
-// ✅ Ensure Next.js correctly detects dynamic paths
 export async function getStaticPaths() {
-  const pages = await builder.getAll('page', {
+  const pages = await builder.getAll("documentation-page", {
     options: { noTargeting: true },
   });
 
   const paths = pages
-    .map(page => {
-      const path = page.data?.url;
-      if (!path || path === '/docs') return null; // Skip the root /docs
+    .map((page) => {
+      const rawPath = page.data?.url;
+      if (!rawPath) return null;
+
+      // ⚠️ Skip paths that are NOT prefixed with /docs
+      if (!rawPath.startsWith("/docs/")) return null;
+
+      const cleanPath = rawPath.replace(/^\/|\/$/g, "");
+      const slug = cleanPath.replace("docs/", "").split("/").filter(Boolean);
+
       return {
-        params: {
-          page: path.replace('/docs/', '').split('/'),
-        },
+        params: { page: slug },
       };
     })
     .filter(Boolean);
 
   return {
     paths,
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 }
 
