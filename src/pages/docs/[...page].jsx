@@ -38,20 +38,19 @@ export async function getStaticPaths() {
 }
 
 
-// ✅ Improved debugging in getStaticProps
 export const getStaticProps = async ({ params, locale }) => {
-
-  // Ensure `params.page` is always an array
-  const pagePath = Array.isArray(params?.page) ? params.page.join("/") : "";
-
-  // Construct the full URL path
+  // ✅ Ensure `params.page` is always an array and clean it
   const cleanedPath = Array.isArray(params?.page)
-  ? params.page.filter(Boolean).join("/")
-  : "";
+    ? params.page.filter(Boolean).join("/")
+    : "";
 
-const urlPath = `/${locale}/docs${cleanedPath ? `/${cleanedPath}` : ""}`;
+  // ✅ Construct the full URL path safely
+  const urlPath = `/${locale}/docs${cleanedPath ? `/${cleanedPath}` : ""}`;
 
-  // Fetch from Builder.io
+  console.log("→ cleanedPath:", cleanedPath);
+  console.log("→ final urlPath:", urlPath);
+
+  // ✅ Fetch from Builder.io
   const page = await builder
     .get("documentation-page", {
       userAttributes: {
@@ -67,6 +66,7 @@ const urlPath = `/${locale}/docs${cleanedPath ? `/${cleanedPath}` : ""}`;
     revalidate: 5,
   };
 };
+
 
 
 
