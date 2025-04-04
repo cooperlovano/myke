@@ -108,7 +108,8 @@ function Navbar({ mode }) {
     onClick={() => setDropdownOpen(!isDropdownOpen)}
     className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-900 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-white border border-gray-400 dark:border-neutral-500"
   >
-     {t?.language_label}: <strong>{locale === "df" ? "Einfaches Deutsch" : locale.toUpperCase()}</strong>
+     {t?.language_label}: <strong>{locale === "df" ? "Einfaches Deutsch" : locale?.toUpperCase?.() ?? "EN"}</strong>
+
   </Button>
   {isDropdownOpen && (
     <div className="absolute right-0 mt-2 w-52 bg-white dark:bg-neutral-800 border rounded-md shadow-lg z-50">
