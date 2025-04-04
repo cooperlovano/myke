@@ -15,26 +15,25 @@ builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
 // ✅ Ensure Next.js correctly detects dynamic paths
 export async function getStaticPaths() {
-
-  const pages = await builder.getAll("documentation-page", {
-    fields: "data.url",
+  const pages = await builder.getAll('page', {
     options: { noTargeting: true },
   });
 
-
   const paths = pages
-    .map((page) => String(page.data?.url))
-    .filter((url) => url.startsWith("/docs/")) // Ensure only valid docs pages are used
-    .map((url) => {
-      // Ensure Next.js understands the [...page] structure
-      const cleanedPath = url.replace(/^\/docs\//, "").split("/");
-      return { params: { page: cleanedPath } };
-    });
-
+    .map(page => {
+      const path = page.data?.url;
+      if (!path || path === '/docs') return null; // Skip the root /docs
+      return {
+        params: {
+          page: path.replace('/docs/', '').split('/'),
+        },
+      };
+    })
+    .filter(Boolean);
 
   return {
     paths,
-    fallback: "blocking", // Dynamically generate missing pages
+    fallback: 'blocking',
   };
 }
 
