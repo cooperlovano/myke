@@ -49,7 +49,7 @@ export const getStaticProps = async ({ params, locale }) => {
     : "";
 
   // ✅ Construct the full URL path safely
-  const urlPath = `/${locale}/docs${cleanedPath ? `/${cleanedPath}` : ""}`;
+  const urlPath = `/docs${cleanedPath ? `/${cleanedPath}` : ""}`;
 
   console.log("→ cleanedPath:", cleanedPath);
   console.log("→ final urlPath:", urlPath);
