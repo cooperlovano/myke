@@ -45,7 +45,11 @@ export const getStaticProps = async ({ params, locale }) => {
   const pagePath = Array.isArray(params?.page) ? params.page.join("/") : "";
 
   // Construct the full URL path
-  const urlPath = `/${locale}/docs/${pagePath}`;
+  const cleanedPath = Array.isArray(params?.page)
+  ? params.page.filter(Boolean).join("/")
+  : "";
+
+const urlPath = `/${locale}/docs${cleanedPath ? `/${cleanedPath}` : ""}`;
 
   // Fetch from Builder.io
   const page = await builder
