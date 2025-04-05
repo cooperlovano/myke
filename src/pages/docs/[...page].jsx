@@ -54,6 +54,11 @@ export const getStaticProps = async ({ params, locale }) => {
 
   const urlPath = `/${locale}/docs${cleanedPath ? `/${cleanedPath}` : ""}`;
 
+  console.log("🌐 Builder getStaticProps");
+  console.log("→ locale:", locale);
+  console.log("→ cleanedPath:", cleanedPath);
+  console.log("→ FINAL urlPath:", urlPath);
+
   const page = await builder
     .get("documentation-page", {
       userAttributes: {
