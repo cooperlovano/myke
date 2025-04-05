@@ -23,16 +23,18 @@ export async function getStaticPaths() {
       const rawPath = page.data?.url;
       if (!rawPath) return null;
 
-      // Match only pages with structure: /locale/docs/...
-      const match = rawPath.match(/^\/(\w{2})\/docs(\/.+)?$/);
-      if (!match) return null;
+      // ❌ Skip if it ends with just /docs or /df/docs
+      if (rawPath === "/docs" || rawPath === "/df/docs") return null;
 
-      const [, locale, rest] = match;
-      const slug = rest ? rest.replace(/^\/|\/$/g, "").split("/") : [];
+      // ✅ Only include pages that are prefixed with /docs/
+      if (!rawPath.startsWith("/docs/") && !rawPath.startsWith("/df/docs/")) return null;
+
+      const cleanPath = rawPath.replace(/^\/|\/$/g, ""); // remove leading/trailing slashes
+      const slug = cleanPath.replace(/^df\/docs\/|^docs\//, "").split("/").filter(Boolean);
 
       return {
         params: { page: slug },
-        locale,
+        locale: rawPath.startsWith("/df/") ? "df" : undefined,
       };
     })
     .filter(Boolean);
