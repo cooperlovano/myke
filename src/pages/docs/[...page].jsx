@@ -23,14 +23,16 @@ export async function getStaticPaths() {
       const rawPath = page.data?.url;
       if (!rawPath) return null;
 
-      // ⚠️ Skip paths that are NOT prefixed with /docs
-      if (!rawPath.startsWith("/docs/")) return null;
+      // Match only pages with structure: /locale/docs/...
+      const match = rawPath.match(/^\/(\w{2})\/docs(\/.+)?$/);
+      if (!match) return null;
 
-      const cleanPath = rawPath.replace(/^\/|\/$/g, "");
-      const slug = cleanPath.replace("docs/", "").split("/").filter(Boolean);
+      const [, locale, rest] = match;
+      const slug = rest ? rest.replace(/^\/|\/$/g, "").split("/") : [];
 
       return {
         params: { page: slug },
+        locale,
       };
     })
     .filter(Boolean);
@@ -42,19 +44,14 @@ export async function getStaticPaths() {
 }
 
 
+
 export const getStaticProps = async ({ params, locale }) => {
-  // ✅ Ensure `params.page` is always an array and clean it
   const cleanedPath = Array.isArray(params?.page)
     ? params.page.filter(Boolean).join("/")
     : "";
 
-  // ✅ Construct the full URL path safely
-  const urlPath = `/docs${cleanedPath ? `/${cleanedPath}` : ""}`;
+  const urlPath = `/${locale}/docs${cleanedPath ? `/${cleanedPath}` : ""}`;
 
-  console.log("→ cleanedPath:", cleanedPath);
-  console.log("→ final urlPath:", urlPath);
-
-  // ✅ Fetch from Builder.io
   const page = await builder
     .get("documentation-page", {
       userAttributes: {
