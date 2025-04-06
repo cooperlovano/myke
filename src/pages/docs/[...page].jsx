@@ -13,37 +13,38 @@ import { navigationItems } from '@/components/DocsNavigation/DocsNavigation';
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
   const pages = await builder.getAll("documentation-page", {
     options: { noTargeting: true },
   });
 
-  const paths = pages
-    .map((page) => {
+  const paths = [];
+
+  for (const locale of locales) {
+    for (const page of pages) {
       const rawPath = page.data?.url;
-      if (!rawPath) return null;
+      if (!rawPath) continue;
 
-      // ❌ Skip if it ends with just /docs or /df/docs
-      if (rawPath === "/docs" || rawPath === "/df/docs") return null;
+      // Normalize and check if it starts with /<locale>/docs
+      const cleanPath = rawPath.replace(/^\/|\/$/g, "");
+      const parts = cleanPath.split("/");
 
-      // ✅ Only include pages that are prefixed with /docs/
-      if (!rawPath.startsWith("/docs/") && !rawPath.startsWith("/df/docs/")) return null;
+      if (parts[0] !== locale || parts[1] !== "docs") continue;
 
-      const cleanPath = rawPath.replace(/^\/|\/$/g, ""); // remove leading/trailing slashes
-      const slug = cleanPath.replace(/^df\/docs\/|^docs\//, "").split("/").filter(Boolean);
-
-      return {
+      const slug = parts.slice(2); // the dynamic parts
+      paths.push({
         params: { page: slug },
-        locale: rawPath.startsWith("/df/") ? "df" : undefined,
-      };
-    })
-    .filter(Boolean);
+        locale,
+      });
+    }
+  }
 
   return {
     paths,
     fallback: "blocking",
   };
 }
+
 
 
 
