@@ -32,6 +32,10 @@ export async function getStaticPaths({ locales }) {
       if (parts[0] !== locale || parts[1] !== "docs") continue;
 
       const slug = parts.slice(2); // the dynamic parts
+
+      // ✅ Skip paths like "/de/docs" (which would be an empty slug for [...page])
+      if (slug.length === 0) continue;
+
       paths.push({
         params: { page: slug },
         locale,
