@@ -28,18 +28,21 @@ const getLocalizedNavigation = (locale) => {
     const localizedItem = {
       ...item,
       title: translations[locale]?.navigation?.[item.key] ?? item.title,
+      url: `/${locale}${item.url}`.replace(/\/{2,}/g, "/"), // Prefix top-level
     };
 
     if (item.subItems?.length > 0) {
       localizedItem.subItems = item.subItems.map((subItem) => ({
         ...subItem,
         title: translations[locale]?.navigation?.[subItem.key] ?? subItem.title,
+        url: `/${locale}${subItem.url}`.replace(/\/{2,}/g, "/"), // Prefix subs
       }));
     }
 
     return localizedItem;
   });
 };
+
 
 
 const flattenNavigation = (items) => {
