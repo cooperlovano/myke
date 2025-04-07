@@ -51,7 +51,6 @@ export async function getStaticPaths({ locales }) {
 
 
 
-
 export const getStaticProps = async ({ params, locale }) => {
   const cleanedPath = Array.isArray(params?.page)
     ? params.page.filter(Boolean).join("/")
@@ -59,18 +58,23 @@ export const getStaticProps = async ({ params, locale }) => {
 
   const urlPath = `/${locale}/docs${cleanedPath ? `/${cleanedPath}` : ""}`;
 
-  console.log("🌐 Builder getStaticProps");
+  console.log("🌐 getStaticProps:");
   console.log("→ locale:", locale);
   console.log("→ cleanedPath:", cleanedPath);
-  console.log("→ FINAL urlPath:", urlPath);
+  console.log("→ urlPath passed to Builder:", urlPath);
 
   const page = await builder
     .get("documentation-page", {
       userAttributes: {
         urlPath,
+        locale,
       },
     })
     .toPromise();
+
+  if (!page) {
+    console.warn(`❌ No Builder content found for: ${urlPath}`);
+  }
 
   return {
     props: {
@@ -80,6 +84,7 @@ export const getStaticProps = async ({ params, locale }) => {
   };
 };
 
+  
 
 
 

@@ -6,7 +6,7 @@ import translations from "@/lib/translations";
 
 // Navigation structure
 export const navigationItems = [
-  { key: "start", url: "/docs" },
+  { key: "start", url: "/docs/willkommen" },
   { key: "introduction", url: "/docs/einleitung" },
   { key: "what_we_did", url: "/docs/das-haben-wir-gemacht" },
   {

@@ -26,7 +26,7 @@ const menuItems = [
       { title: "Unser Team", url: "/team" },
       { title: "Unsere Mission", url: "/mission" },
       { title: "TikTok Accounts", url: "/tiktok-accounts" },
-      { title: "Dokumentation", url: "/de/docs" },
+      { title: "Dokumentation", url: "/de/docs/willkommen" },
     ],
   },
   { title: "FAQ", url: "/faq" },
