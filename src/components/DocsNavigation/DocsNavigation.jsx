@@ -29,8 +29,11 @@ const getLocalizedNavigation = (locale) => {
     title: translations[locale]?.navigation?.[item.key] ?? item.title,
     subItems: item.subItems?.map((subItem) => ({
       ...subItem,
-      title: translations[locale]?.navigation?.[subItem.key] ?? subItem.title,
-    })),
+      title:
+        translations[locale]?.navigation?.[subItem.key] ??
+        subItem.title ??
+        subItem.key,
+    }))
   }));
 };
 
@@ -108,7 +111,7 @@ function DocsNavigation({ setIsOpen }) {
   const router = useRouter();
   const { locale, asPath } = router;
   const localizedNavigation = getLocalizedNavigation(locale);
-
+  console.log("🧭 Final localized navigation:", localizedNavigation);
   return (
     <div>
       <Accordion collapsible type="single">
