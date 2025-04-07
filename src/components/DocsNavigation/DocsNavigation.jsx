@@ -26,13 +26,85 @@ export const navigationItems = [
 const getLocalizedNavigation = (locale) => {
   return navigationItems.map((item) => ({
     ...item,
+    url: `/${locale}${item.url}`, // Prefix main URL
     title: translations[locale]?.navigation?.[item.key] ?? item.title,
     subItems: item.subItems?.map((subItem) => ({
       ...subItem,
+      url: `/${locale}${subItem.url}`, //  Prefix subitem URL
       title: translations[locale]?.navigation?.[subItem.key] ?? subItem.title,
     })),
   }));
 };
+
+const flattenNavigation = (items) => {
+  return items.reduce((acc, item) => {
+    if (item.subItems) {
+      acc.push(...item.subItems);
+    } else {
+      acc.push(item);
+    }
+    return acc;
+  }, []);
+};
+
+const findNavigationLinks = (currentUrl, navItems, locale) => {
+  const localizedNav = navItems.map((item) => ({
+    ...item,
+    url: `/${locale}${item.url}`.replace(/\/{2,}/g, "/"),
+  }));
+
+  const flattenedNavigation = flattenNavigation(localizedNav);
+  const formattedCurrentUrl = `/${locale}${currentUrl}`.replace(/\/{2,}/g, "/");
+  const currentIndex = flattenedNavigation.findIndex((item) => item.url === formattedCurrentUrl);
+
+  if (currentIndex === -1) {
+    return { previous: null, next: null };
+  }
+
+  const previousItem = currentIndex > 0 ? flattenedNavigation[currentIndex - 1] : null;
+  const nextItem = currentIndex < flattenedNavigation.length - 1 ? flattenedNavigation[currentIndex + 1] : null;
+
+  return {
+    previous: previousItem || null,
+    next: nextItem || null,
+  };
+};
+
+export function DocsNavigationButtons() {
+  const router = useRouter();
+  const { locale } = router;
+  const currentUrl = router.asPath;
+  const navigationLinks = findNavigationLinks(currentUrl, getLocalizedNavigation(locale), locale);
+
+  return (
+    <div className="max-w-xl w-full grid grid-cols-2 gap-4 mx-auto">
+      {navigationLinks.previous ? (
+        <Link className="rounded shrink-0 border border-neutral-500 block p-2" href={navigationLinks.previous.url}>
+          <div>
+            <div className="text-xs opacity-50">
+              {translations[locale]?.buttons?.previous ?? translations["en"].buttons.previous}
+            </div>
+            <div>{navigationLinks.previous.title}</div>
+          </div>
+        </Link>
+      ) : (
+        <div className="w-1/2"></div>
+      )}
+      {navigationLinks.next ? (
+        <Link className="rounded border border-neutral-500 block p-2 shrink-0" href={navigationLinks.next.url}>
+          <div>
+            <div className="text-xs opacity-50">
+              {translations[locale]?.buttons?.next ?? translations["en"].buttons.next}
+            </div>
+            <div>{navigationLinks.next.title}</div>
+          </div>
+        </Link>
+      ) : (
+        <div className=""></div>
+      )}
+    </div>
+  );
+}
 
 function DocsNavigation({ setIsOpen }) {
   const router = useRouter();
@@ -46,37 +118,30 @@ function DocsNavigation({ setIsOpen }) {
           const isActive = asPath === item.url;
           return (
             <AccordionItem
-              className={`${item.subItems ? "border-b mb-4 border-t border-neutral-500" : "border-none"}`}
+              className={`${item.subItems ? "border-b mb-4 border-t border-neutral-500" : "border-none"} `}
               value={item.title}
               key={index}
             >
-              {item.subItems && (
-                <AccordionTrigger className="pb-0 text-base">{item.title}</AccordionTrigger>
-              )}
-              {item.subItems ? (
-                <AccordionContent>
-                  <ul className="flex flex-col gap-3 pl-4 mb-4">
+              {item.subItems && <AccordionTrigger className="pb-0 text-base">{item.title}</AccordionTrigger>}
+              <AccordionContent>
+                <ul className="flex flex-col gap-3 pl-4 mb-4">
                   {item.subItems?.map((subItem) => {
-  if (!subItem?.url || !subItem?.title) return null;
-
-  const isSubActive = asPath === subItem.url;
-
-  return (
-    <li onClick={() => setIsOpen && setIsOpen(false)} key={subItem.url}>
-      <Link
-        className={`opacity-60 flex items-center gap-2 ${isSubActive ? "text-white" : ""}`}
-        href={subItem.url}
-      >
-        {isSubActive && <div className="w-2 h-2 rounded-full bg-white" />}
-        {subItem.title}
-      </Link>
-    </li>
-  );
-})}
-
-                  </ul>
-                </AccordionContent>
-              ) : (
+                    const isSubActive = asPath === subItem.url;
+                    return (
+                      <li onClick={() => setIsOpen && setIsOpen(false)} key={subItem.url}>
+                        <Link
+                          className={`opacity-60 flex items-center gap-2 ${isSubActive ? "text-white" : ""}`}
+                          href={subItem.url}
+                        >
+                          {isSubActive && <div className="w-2 h-2 rounded-full bg-white" />}
+                          {subItem.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </AccordionContent>
+              {!item.subItems && (
                 <Link
                   onClick={() => setIsOpen && setIsOpen(false)}
                   className={`block pb-4 font-bold cursor-pointer flex items-center gap-2 ${
