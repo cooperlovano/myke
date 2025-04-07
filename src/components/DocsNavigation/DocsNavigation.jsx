@@ -119,7 +119,7 @@ function DocsNavigation({ setIsOpen }) {
           return (
             <AccordionItem
               className={`${item.subItems ? "border-b mb-4 border-t border-neutral-500" : "border-none"} `}
-              value={item.title}
+              value={item.key}
               key={index}
             >
               {item.subItems && <AccordionTrigger className="pb-0 text-base">{item.title}</AccordionTrigger>}
