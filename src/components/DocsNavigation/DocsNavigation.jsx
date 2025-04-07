@@ -23,25 +23,17 @@ export const navigationItems = [
   { key: "team", url: "/docs/team-und-forderer" },
 ];
 
-const humanize = (str) =>
-  str
-    .replace(/_/g, " ")
-    .replace(/\b\w/g, (char) => char.toUpperCase());
-
 const getLocalizedNavigation = (locale) => {
   return navigationItems.map((item) => ({
     ...item,
     title: translations[locale]?.navigation?.[item.key] ?? item.title,
-    subItems: item.subItems?.map((subItem) => {
-      const translatedTitle = translations[locale]?.navigation?.[subItem.key];
-      const fallbackTitle = subItem.title || humanize(subItem.key);
-    
-      return {
-        ...subItem,
-        title: translatedTitle || fallbackTitle,
-        url: `/${locale}${subItem.url}`.replace(/\/{2,}/g, "/"),
-      };
-    }),
+    subItems: item.subItems?.map((subItem) => ({
+      ...subItem,
+      title:
+        translations[locale]?.navigation?.[subItem.key] ??
+        subItem.title ??
+        subItem.key,
+    }))
   }));
 };
 
