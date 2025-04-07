@@ -56,20 +56,24 @@ function DocsNavigation({ setIsOpen }) {
               {item.subItems ? (
                 <AccordionContent>
                   <ul className="flex flex-col gap-3 pl-4 mb-4">
-                    {item.subItems.map((subItem) => {
-                      const isSubActive = asPath === subItem.url;
-                      return (
-                        <li onClick={() => setIsOpen && setIsOpen(false)} key={subItem.url}>
-                          <Link
-                            className={`opacity-60 flex items-center gap-2 ${isSubActive ? "text-white" : ""}`}
-                            href={subItem.url}
-                          >
-                            {isSubActive && <div className="w-2 h-2 rounded-full bg-white" />}
-                            {subItem.title}
-                          </Link>
-                        </li>
-                      );
-                    })}
+                  {item.subItems?.map((subItem) => {
+  if (!subItem?.url || !subItem?.title) return null;
+
+  const isSubActive = asPath === subItem.url;
+
+  return (
+    <li onClick={() => setIsOpen && setIsOpen(false)} key={subItem.url}>
+      <Link
+        className={`opacity-60 flex items-center gap-2 ${isSubActive ? "text-white" : ""}`}
+        href={subItem.url}
+      >
+        {isSubActive && <div className="w-2 h-2 rounded-full bg-white" />}
+        {subItem.title}
+      </Link>
+    </li>
+  );
+})}
+
                   </ul>
                 </AccordionContent>
               ) : (
