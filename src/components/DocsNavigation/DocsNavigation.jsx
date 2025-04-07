@@ -112,34 +112,39 @@ function DocsNavigation({ setIsOpen }) {
   return (
     <div>
       <Accordion collapsible type="single">
-        {localizedNavigation.map((item, index) => {
+        {localizedNavigation.map((item) => {
           const isActive = asPath === item.url;
+          const hasSubItems = item.subItems && item.subItems.length > 0;
+
           return (
             <AccordionItem
-              className={`${item.subItems ? "border-b mb-4 border-t border-neutral-500" : "border-none"} `}
-              value={item.title}
-              key={index}
+              className={`${hasSubItems ? "border-b mb-4 border-t border-neutral-500" : "border-none"}`}
+              value={item.key}
+              key={item.key}
             >
-              {item.subItems && <AccordionTrigger className="pb-0 text-base">{item.title}</AccordionTrigger>}
-              <AccordionContent>
-                <ul className="flex flex-col gap-3 pl-4 mb-4">
-                  {item.subItems?.map((subItem) => {
-                    const isSubActive = asPath === subItem.url;
-                    return (
-                      <li onClick={() => setIsOpen && setIsOpen(false)} key={subItem.url}>
-                        <Link
-                          className={`opacity-60 flex items-center gap-2 ${isSubActive ? "text-white" : ""}`}
-                          href={subItem.url}
-                        >
-                          {isSubActive && <div className="w-2 h-2 rounded-full bg-white" />}
-                          {subItem.title}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </AccordionContent>
-              {!item.subItems && (
+              {hasSubItems ? (
+                <>
+                  <AccordionTrigger className="pb-0 text-base">{item.title}</AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="flex flex-col gap-3 pl-4 mb-4">
+                      {item.subItems.map((subItem) => {
+                        const isSubActive = asPath === subItem.url;
+                        return (
+                          <li onClick={() => setIsOpen && setIsOpen(false)} key={subItem.url}>
+                            <Link
+                              className={`opacity-60 flex items-center gap-2 ${isSubActive ? "text-white" : ""}`}
+                              href={subItem.url}
+                            >
+                              {isSubActive && <div className="w-2 h-2 rounded-full bg-white" />}
+                              {subItem.title}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </AccordionContent>
+                </>
+              ) : (
                 <Link
                   onClick={() => setIsOpen && setIsOpen(false)}
                   className={`block pb-4 font-bold cursor-pointer flex items-center gap-2 ${
@@ -158,5 +163,6 @@ function DocsNavigation({ setIsOpen }) {
     </div>
   );
 }
+
 
 export default DocsNavigation;
