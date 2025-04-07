@@ -26,9 +26,11 @@ export const navigationItems = [
 const getLocalizedNavigation = (locale) => {
   return navigationItems.map((item) => ({
     ...item,
+    url: `/${locale}${item.url}`, // Prefix main URL
     title: translations[locale]?.navigation?.[item.key] ?? item.title,
     subItems: item.subItems?.map((subItem) => ({
       ...subItem,
+      url: `/${locale}${subItem.url}`, //  Prefix subitem URL
       title: translations[locale]?.navigation?.[subItem.key] ?? subItem.title,
     })),
   }));
