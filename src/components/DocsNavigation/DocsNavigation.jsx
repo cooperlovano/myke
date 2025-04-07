@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Accordion, AccordionItem, AccordionContent, AccordionTrigger } from "../ui/accordion";
 import Link from "next/link";
@@ -28,22 +28,20 @@ const getLocalizedNavigation = (locale) => {
     const localizedItem = {
       ...item,
       title: translations[locale]?.navigation?.[item.key] ?? item.title,
-      url: `/${locale}${item.url}`.replace(/\/{2,}/g, "/"), // Prefix top-level
+      url: `/${locale}${item.url}`.replace(/\/{2,}/g, "/"),
     };
 
     if (item.subItems?.length > 0) {
       localizedItem.subItems = item.subItems.map((subItem) => ({
         ...subItem,
         title: translations[locale]?.navigation?.[subItem.key] ?? subItem.title,
-        url: `/${locale}${subItem.url}`.replace(/\/{2,}/g, "/"), // Prefix subs
+        url: `/${locale}${subItem.url}`.replace(/\/{2,}/g, "/"),
       }));
     }
 
     return localizedItem;
   });
 };
-
-
 
 const flattenNavigation = (items) => {
   return items.reduce((acc, item) => {
@@ -81,7 +79,9 @@ const findNavigationLinks = (currentUrl, navItems, locale) => {
 
 export function DocsNavigationButtons() {
   const router = useRouter();
-  const { locale } = router;
+  const { locale, asPath } = router;
+  console.log("🧭 DocsNavigation locale:", locale);
+  console.log("🧭 DocsNavigation asPath:", asPath);
   const currentUrl = router.asPath;
   const navigationLinks = findNavigationLinks(currentUrl, getLocalizedNavigation(locale), locale);
 
@@ -120,14 +120,22 @@ function DocsNavigation({ setIsOpen }) {
   const { locale, asPath } = router;
   const localizedNavigation = getLocalizedNavigation(locale);
 
+  useEffect(() => {
+    console.log("🧭 Client-side path check:", asPath);
+  }, [asPath]);
+
+  // ✅ Determine which accordion should open
+  const activeItemKey = localizedNavigation.find(item =>
+    item.subItems?.some(sub => sub.url === asPath)
+  )?.key;
+
   return (
     <div>
-      <Accordion collapsible type="single">
+      <Accordion collapsible type="single" defaultValue={activeItemKey}>
         {localizedNavigation.map((item) => {
           const isActive = asPath === item.url;
-  
           const hasSubItems = item.subItems && item.subItems.length > 0;
-  
+
           return (
             <AccordionItem
               key={item.key}
@@ -176,7 +184,6 @@ function DocsNavigation({ setIsOpen }) {
       </Accordion>
     </div>
   );
-  
 }
 
 export default DocsNavigation;
