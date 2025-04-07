@@ -24,17 +24,23 @@ export const navigationItems = [
 ];
 
 const getLocalizedNavigation = (locale) => {
-  return navigationItems.map((item) => ({
-    ...item,
-    url: `/${locale}${item.url}`, // Prefix main URL
-    title: translations[locale]?.navigation?.[item.key] ?? item.title,
-    subItems: item.subItems?.map((subItem) => ({
-      ...subItem,
-      url: `/${locale}${subItem.url}`, //  Prefix subitem URL
-      title: translations[locale]?.navigation?.[subItem.key] ?? subItem.title,
-    })),
-  }));
+  return navigationItems.map((item) => {
+    const localizedItem = {
+      ...item,
+      title: translations[locale]?.navigation?.[item.key] ?? item.title,
+    };
+
+    if (item.subItems?.length > 0) {
+      localizedItem.subItems = item.subItems.map((subItem) => ({
+        ...subItem,
+        title: translations[locale]?.navigation?.[subItem.key] ?? subItem.title,
+      }));
+    }
+
+    return localizedItem;
+  });
 };
+
 
 const flattenNavigation = (items) => {
   return items.reduce((acc, item) => {
@@ -114,40 +120,48 @@ function DocsNavigation({ setIsOpen }) {
   return (
     <div>
       <Accordion collapsible type="single">
-        {localizedNavigation.map((item, index) => {
+        {localizedNavigation.map((item) => {
           const isActive = asPath === item.url;
+  
+          const hasSubItems = item.subItems && item.subItems.length > 0;
+  
           return (
             <AccordionItem
-              className={`${item.subItems ? "border-b mb-4 border-t border-neutral-500" : "border-none"} `}
+              key={item.key}
               value={item.key}
-              key={index}
+              className={`${hasSubItems ? "border-b mb-4 border-t border-neutral-500" : "border-none"}`}
             >
-              {item.subItems && <AccordionTrigger className="pb-0 text-base">{item.title}</AccordionTrigger>}
-              <AccordionContent>
-                <ul className="flex flex-col gap-3 pl-4 mb-4">
-                  {item.subItems?.map((subItem) => {
-                    const isSubActive = asPath === subItem.url;
-                    return (
-                      <li onClick={() => setIsOpen && setIsOpen(false)} key={subItem.url}>
-                        <Link
-                          className={`opacity-60 flex items-center gap-2 ${isSubActive ? "text-white" : ""}`}
-                          href={subItem.url}
-                        >
-                          {isSubActive && <div className="w-2 h-2 rounded-full bg-white" />}
-                          {subItem.title}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </AccordionContent>
-              {!item.subItems && (
+              {hasSubItems ? (
+                <>
+                  <AccordionTrigger className="pb-0 text-base">{item.title}</AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="flex flex-col gap-3 pl-4 mb-4">
+                      {item.subItems.map((subItem) => {
+                        const isSubActive = asPath === subItem.url;
+                        return (
+                          <li onClick={() => setIsOpen && setIsOpen(false)} key={subItem.key}>
+                            <Link
+                              href={subItem.url}
+                              className={`opacity-60 flex items-center gap-2 ${
+                                isSubActive ? "text-white" : ""
+                              }`}
+                            >
+                              {isSubActive && <div className="w-2 h-2 rounded-full bg-white" />}
+                              {subItem.title}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </AccordionContent>
+                </>
+              ) : (
                 <Link
                   onClick={() => setIsOpen && setIsOpen(false)}
+                  href={item.url}
                   className={`block pb-4 font-bold cursor-pointer flex items-center gap-2 ${
                     isActive ? "text-white" : ""
                   }`}
-                  href={item.url}
                 >
                   {isActive && <div className="w-2 h-2 rounded-full bg-white" />}
                   {item.title}
@@ -159,6 +173,7 @@ function DocsNavigation({ setIsOpen }) {
       </Accordion>
     </div>
   );
+  
 }
 
 export default DocsNavigation;
