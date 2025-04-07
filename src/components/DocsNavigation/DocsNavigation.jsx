@@ -28,33 +28,22 @@ const humanize = (str) =>
     .replace(/_/g, " ")
     .replace(/\b\w/g, (char) => char.toUpperCase());
 
-    const getLocalizedNavigation = (locale) => {
-      return navigationItems.map((item) => {
-        const localizedItem = {
-          ...item,
-          title: translations[locale]?.navigation?.[item.key] ?? item.title,
-          url: `/${locale}${item.url}`.replace(/\/{2,}/g, "/"),
-        };
+const getLocalizedNavigation = (locale) => {
+  return navigationItems.map((item) => ({
+    ...item,
+    title: translations[locale]?.navigation?.[item.key] ?? item.title,
+    subItems: item.subItems?.map((subItem) => {
+      const translatedTitle = translations[locale]?.navigation?.[subItem.key];
+      const fallbackTitle = subItem.title || humanize(subItem.key);
     
-        if (item.subItems?.length > 0) {
-          localizedItem.subItems = item.subItems.map((subItem) => {
-            // 🧠 Prefer title if it exists (e.g., "@alex.new.mindset")
-            const explicitTitle = subItem.title;
-            const translated = translations[locale]?.navigation?.[subItem.key];
-            const fallback = explicitTitle || translated || humanize(subItem.key);
-    
-            return {
-              ...subItem,
-              title: fallback,
-              url: `/${locale}${subItem.url}`.replace(/\/{2,}/g, "/"),
-            };
-          });
-        }
-    
-        return localizedItem;
-      });
-    };
-    
+      return {
+        ...subItem,
+        title: translatedTitle || fallbackTitle,
+        url: `/${locale}${subItem.url}`.replace(/\/{2,}/g, "/"),
+      };
+    }),
+  }));
+};
 
 const flattenNavigation = (items) => {
   return items.reduce((acc, item) => {
