@@ -101,38 +101,52 @@ function Navbar({ mode }) {
               </Button>
 
               {/* ✅ Language Dropdown */}
-              <div className="relative">
-  <Button
-    variant={mode === "light" ? "custom-light" : "custom-dark"}
-    size="sm"
-    onClick={() => setDropdownOpen(!isDropdownOpen)}
-    className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-900 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-white border border-gray-400 dark:border-neutral-500"
-  >
-     {t?.language_label}: <strong>{locale === "df" ? "Einfaches Deutsch" : locale?.toUpperCase?.() ?? "EN"}</strong>
+              <div className="flex flex-col items-end gap-2 sm:flex-row sm:justify-end sm:items-center sm:gap-4">
+              {/* Myke.fyi button */}
+              <Button
+                variant={mode === "light" ? "custom-light" : "custom-dark"}
+                size="sm"
+                onClick={() => window.location.href = "https://myke.fyi"}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-900 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-white border border-gray-400 dark:border-neutral-500"
+              >
+                zu myke.fyi
+              </Button>
 
-  </Button>
-  {isDropdownOpen && (
-    <div className="absolute right-0 mt-2 w-52 bg-white dark:bg-neutral-800 border rounded-md shadow-lg z-50">
-      <ul className="py-2 text-gray-700 dark:text-gray-300">
-        <li>
-          <button onClick={() => handleLocaleChange("de")} className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700">
-            🇩🇪 Deutsch
-          </button>
-        </li>
-        <li>
-          <button onClick={() => handleLocaleChange("en")} className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700">
-            🇬🇧 English
-          </button>
-        </li>
-        <li>
-          <button onClick={() => handleLocaleChange("df")} className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700">
-            🟢 Einfaches Deutsch
-          </button>
-        </li>
-      </ul>
-    </div>
-  )}
-</div>
+              {/* Language Dropdown */}
+              <div className="relative">
+                <Button
+                  variant={mode === "light" ? "custom-light" : "custom-dark"}
+                  size="sm"
+                  onClick={() => setDropdownOpen(!isDropdownOpen)}
+                  className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-900 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-white border border-gray-400 dark:border-neutral-500"
+                >
+                  {t?.language_label}: <strong>{locale === "df" ? "Einfaches Deutsch" : locale?.toUpperCase?.() ?? "EN"}</strong>
+                </Button>
+
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-52 bg-white dark:bg-neutral-800 border rounded-md shadow-lg z-50">
+                    <ul className="py-2 text-gray-700 dark:text-gray-300">
+                      <li>
+                        <button onClick={() => handleLocaleChange("de")} className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700">
+                          🇩🇪 Deutsch
+                        </button>
+                      </li>
+                      <li>
+                        <button onClick={() => handleLocaleChange("en")} className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700">
+                          🇬🇧 English
+                        </button>
+                      </li>
+                      <li>
+                        <button onClick={() => handleLocaleChange("df")} className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700">
+                          🟢 Einfaches Deutsch
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+
 
 
             </>
