@@ -78,30 +78,30 @@ function Navbar({ mode }) {
 
 
 
-  return (
-    <div className={mode === "light" ? "bg-white" : "bg-neutral-900 text-white"}>
-      <nav className="flex justify-between max-w-screen-xl mx-auto p-4 items-center">
-        <div className="shrink-0 flex gap-4 items-center">
-          <Link href="/">
-            <img className="h-6" src={mode === "light" ? "/myke_logo_dark.png" : "/myke_logo_light.png"} alt="MYKE Logo" />
-          </Link>
-        </div>
+return (
+  <div className={mode === "light" ? "bg-white" : "bg-neutral-900 text-white"}>
+    <nav className="flex justify-between max-w-screen-xl mx-auto p-4 items-center">
+      <div className="shrink-0 flex gap-4 items-center">
+        <Link href="/">
+          <img
+            className="h-6"
+            src={mode === "light" ? "/myke_logo_dark.png" : "/myke_logo_light.png"}
+            alt="MYKE Logo"
+          />
+        </Link>
+      </div>
 
-        <div className="flex gap-6 items-center">
-          {!pathname.startsWith("/docs") && (
-            <div className="gap-12 hidden sm:flex">
-              <DesktopMenu />
-            </div>
-          )}
+      <div className="flex gap-6 items-center">
+        {!pathname.startsWith("/docs") && (
+          <div className="gap-12 hidden sm:flex">
+            <DesktopMenu />
+          </div>
+        )}
 
-          {pathname.startsWith("/docs") ? (
-            <>
-              <Button variant={mode === "light" ? "default" : "secondary"} size="sm">
-                <Link href="/">zu myke.fyi</Link>
-              </Button>
-
-              {/* ✅ Language Dropdown */}
-              <div className="flex flex-col items-end gap-2 sm:flex-row sm:justify-end sm:items-center sm:gap-4">
+        {pathname.startsWith("/docs") ? (
+          <>
+            {/* ✅ Buttons for Docs pages */}
+            <div className="flex flex-col items-end gap-2 sm:flex-row sm:justify-end sm:items-center sm:gap-4">
               {/* Myke.fyi button */}
               <Button
                 variant={mode === "light" ? "custom-light" : "custom-dark"}
@@ -120,24 +120,34 @@ function Navbar({ mode }) {
                   onClick={() => setDropdownOpen(!isDropdownOpen)}
                   className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-900 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-white border border-gray-400 dark:border-neutral-500"
                 >
-                  {t?.language_label}: <strong>{locale === "df" ? "Einfaches Deutsch" : locale?.toUpperCase?.() ?? "EN"}</strong>
+                  {t?.language_label}:{" "}
+                  <strong>{locale === "df" ? "Einfaches Deutsch" : locale?.toUpperCase?.() ?? "EN"}</strong>
                 </Button>
 
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-52 bg-white dark:bg-neutral-800 border rounded-md shadow-lg z-50">
                     <ul className="py-2 text-gray-700 dark:text-gray-300">
                       <li>
-                        <button onClick={() => handleLocaleChange("de")} className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700">
+                        <button
+                          onClick={() => handleLocaleChange("de")}
+                          className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700"
+                        >
                           🇩🇪 Deutsch
                         </button>
                       </li>
                       <li>
-                        <button onClick={() => handleLocaleChange("en")} className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700">
+                        <button
+                          onClick={() => handleLocaleChange("en")}
+                          className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700"
+                        >
                           🇬🇧 English
                         </button>
                       </li>
                       <li>
-                        <button onClick={() => handleLocaleChange("df")} className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700">
+                        <button
+                          onClick={() => handleLocaleChange("df")}
+                          className="block px-4 py-2 w-full text-left hover:bg-gray-200 dark:hover:bg-neutral-700"
+                        >
                           🟢 Einfaches Deutsch
                         </button>
                       </li>
@@ -146,19 +156,17 @@ function Navbar({ mode }) {
                 )}
               </div>
             </div>
+          </>
+        ) : (
+          <Button variant={mode === "light" ? "default" : "secondary"} size="sm">
+            <Link href="/beratungsstellen">Action Guide</Link>
+          </Button>
+        )}
+      </div>
+    </nav>
+  </div>
+);
 
-
-
-            </>
-          ) : (
-            <Button variant={mode === "light" ? "default" : "secondary"} size="sm">
-              <Link href="/beratungsstellen">Action Guide</Link>
-            </Button>
-          )}
-        </div>
-      </nav>
-    </div>
-  );
 }
 
 // ✅ Desktop Menu with "Über uns" & FAQ
