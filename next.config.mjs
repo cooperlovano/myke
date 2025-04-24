@@ -5,9 +5,18 @@ import BuilderDevTools from "@builder.io/dev-tools/next";
 const nextConfig = BuilderDevTools()({
   reactStrictMode: true,
   i18n: {
-    locales: ["de", "en", "df"], // <– include "df" here
+    locales: ["de", "en", "df"],
     defaultLocale: "de",
     localeDetection: false,
+  },
+  async redirects() {
+    return [
+      {
+        source: "/docs",
+        destination: "/de/docs/willkommen",
+        permanent: true, // or false if you'd rather make it temporary
+      },
+    ];
   },
 });
 
