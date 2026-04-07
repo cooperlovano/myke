@@ -50,7 +50,7 @@ const menuItems = [
             },
             {
                 title: "Dokumentation",
-                url: "/docs"
+                url: "/de/docs/willkommen"
             }
             // {
             //     title: "Expert:innen",

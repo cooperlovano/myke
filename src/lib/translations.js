@@ -5,8 +5,12 @@ const translations = {
         introduction: "Einleitung",
         what_we_did: "Das haben wir gemacht",
         accounts: "Accounts",
+        alex: "Alex – New Mindset",
+        wohin: "Wohin von hier",
+        donk: "Don K",
+        other_accounts: "Andere Accounts",
         what_we_learned: "Das haben wir gelernt",
-        team: "Team und Förderer", // FIXED
+        team: "Team und Förderer",
       },
       buttons: {
         next: "Nächste Seite", // FIXED
@@ -21,6 +25,10 @@ const translations = {
         introduction: "Introduction",
         what_we_did: "What We Did",
         accounts: "Accounts",
+        alex: "Alex – New Mindset",
+        wohin: "Where Do We Go From Here",
+        donk: "Don K",
+        other_accounts: "Other Accounts",
         what_we_learned: "What We Learned",
         team: "Team & Supporters",
       },
@@ -37,8 +45,12 @@ const translations = {
         introduction: "Einleitung",
         what_we_did: "Das haben wir gemacht",
         accounts: "Konten",
+        alex: "Alex – New Mindset",
+        wohin: "Wohin von hier",
+        donk: "Don K",
+        other_accounts: "Andere Konten",
         what_we_learned: "Was wir gelernt haben",
-        team: "Team und Förderer", // FIXED
+        team: "Team und Förderer",
       },
       buttons: {
         next: "Nächste Seite", // FIXED
