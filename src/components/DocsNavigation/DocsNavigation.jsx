@@ -136,10 +136,10 @@ function DocsNavigation({ setIsOpen }) {
                     return (
                       <li onClick={() => setIsOpen && setIsOpen(false)} key={subItem.url}>
                         <Link
-                          className={`opacity-60 flex items-center gap-2 ${isSubActive ? "text-white" : ""}`}
+                          className={`opacity-60 flex items-center gap-2 ${isSubActive ? "text-neutral-700" : ""}`}
                           href={subItem.url}
                         >
-                          {isSubActive && <div className="w-2 h-2 rounded-full bg-white" />}
+                          {isSubActive && <div className="w-2 h-2 rounded-full bg-neutral-700" />}
                           {subItem.title}
                         </Link>
                       </li>
