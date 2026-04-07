@@ -12,14 +12,21 @@ import "../../builder-registry";
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
 export async function getStaticProps({ locale }) {
-  const destination =
-    locale === "de" ? "/docs/willkommen" : `/${locale}/docs/willkommen`;
+  const urlPath = locale === "de" ? "/docs" : `/${locale}/docs`;
+
+  const page = await builder
+    .get("documentation-page", {
+      userAttributes: { urlPath },
+    })
+    .toPromise();
+
+  if (!page) {
+    return { notFound: true };
+  }
 
   return {
-    redirect: {
-      destination,
-      permanent: false,
-    },
+    props: { page },
+    revalidate: 5,
   };
 }
 

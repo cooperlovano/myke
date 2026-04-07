@@ -8,6 +8,13 @@ const nextConfig = BuilderDevTools()({
     defaultLocale: "de", // German stays default with NO `/de` prefix
     localeDetection: false, // Prevents automatic redirects
   },
+  async redirects() {
+    return [
+      { source: "/docs", destination: "/docs/willkommen", permanent: false, locale: false },
+      { source: "/en/docs", destination: "/en/docs/willkommen", permanent: false, locale: false },
+      { source: "/df/docs", destination: "/df/docs/willkommen", permanent: false, locale: false },
+    ];
+  },
 });
 
 export default nextConfig;
