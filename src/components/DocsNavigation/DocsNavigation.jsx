@@ -49,10 +49,6 @@ const findNavigationLinks = (currentUrl, navItems, locale) => {
   const localizedNav = navItems.map((item) => ({
     ...item,
     url: `/${locale}${item.url}`.replace(/\/{2,}/g, "/"),
-    subItems: item.subItems?.map((sub) => ({
-      ...sub,
-      url: `/${locale}${sub.url}`.replace(/\/{2,}/g, "/"),
-    })),
   }));
 
   const flattenedNavigation = flattenNavigation(localizedNav);
@@ -113,13 +109,9 @@ function DocsNavigation({ setIsOpen }) {
   const { locale, asPath } = router;
   const localizedNavigation = getLocalizedNavigation(locale);
 
-  const defaultOpen = localizedNavigation.find(item =>
-    item.subItems?.some(sub => asPath === sub.url)
-  )?.title;
-
   return (
     <div>
-      <Accordion collapsible type="single" defaultValue={defaultOpen}>
+      <Accordion collapsible type="single">
         {localizedNavigation.map((item, index) => {
           const isActive = asPath === item.url;
           return (
