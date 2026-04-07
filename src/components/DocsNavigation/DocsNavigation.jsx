@@ -112,6 +112,9 @@ function DocsNavigation({ setIsOpen }) {
   const router = useRouter();
   const { locale, asPath } = router;
   const localizedNavigation = getLocalizedNavigation(locale);
+  const isMobile = !!setIsOpen;
+  const activeColor = isMobile ? "text-neutral-700" : "text-white";
+  const activeDotColor = isMobile ? "bg-neutral-700" : "bg-white";
 
   const defaultOpen = localizedNavigation.find(item =>
     item.subItems?.some(sub => asPath === sub.url)
@@ -136,10 +139,10 @@ function DocsNavigation({ setIsOpen }) {
                     return (
                       <li onClick={() => setIsOpen && setIsOpen(false)} key={subItem.url}>
                         <Link
-                          className={`opacity-60 flex items-center gap-2 ${isSubActive ? "text-neutral-700" : ""}`}
+                          className={`opacity-60 flex items-center gap-2 ${isSubActive ? activeColor : ""}`}
                           href={subItem.url}
                         >
-                          {isSubActive && <div className="w-2 h-2 rounded-full bg-neutral-700" />}
+                          {isSubActive && <div className={`w-2 h-2 rounded-full ${activeDotColor}`} />}
                           {subItem.title}
                         </Link>
                       </li>
@@ -151,11 +154,11 @@ function DocsNavigation({ setIsOpen }) {
                 <Link
                   onClick={() => setIsOpen && setIsOpen(false)}
                   className={`block pb-4 font-bold cursor-pointer flex items-center gap-2 ${
-                    isActive ? "text-white" : ""
+                    isActive ? activeColor : ""
                   }`}
                   href={item.url}
                 >
-                  {isActive && <div className="w-2 h-2 rounded-full bg-white" />}
+                  {isActive && <div className={`w-2 h-2 rounded-full ${activeDotColor}`} />}
                   {item.title}
                 </Link>
               )}
