@@ -11,22 +11,15 @@ import "../../builder-registry";
 // 1. Initialize Builder with your API key
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
-export async function getStaticProps({ locale }) {
-  const urlPath = locale === "de" ? "/docs" : `/${locale}/docs`;
-
-  const page = await builder
-    .get("documentation-page", {
-      userAttributes: { urlPath },
-    })
-    .toPromise();
-
-  if (!page) {
-    return { notFound: true };
-  }
+export async function getServerSideProps({ locale }) {
+  const destination =
+    locale === "de" ? "/docs/willkommen" : `/${locale}/docs/willkommen`;
 
   return {
-    props: { page },
-    revalidate: 5,
+    redirect: {
+      destination,
+      permanent: false,
+    },
   };
 }
 
