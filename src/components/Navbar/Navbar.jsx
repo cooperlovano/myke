@@ -96,6 +96,9 @@ function Navbar({ mode }) {
 
           {pathname.startsWith("/docs") ? (
             <>
+              <div className="sm:hidden">
+                <MobileNavDocs />
+              </div>
               <Button variant={mode === "light" ? "default" : "secondary"} size="sm">
                 <Link href="/">zu myke.fyi</Link>
               </Button>

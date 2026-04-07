@@ -109,9 +109,13 @@ function DocsNavigation({ setIsOpen }) {
   const { locale, asPath } = router;
   const localizedNavigation = getLocalizedNavigation(locale);
 
+  const defaultOpen = localizedNavigation.find(item =>
+    item.subItems?.some(sub => asPath === sub.url)
+  )?.title;
+
   return (
     <div>
-      <Accordion collapsible type="single">
+      <Accordion collapsible type="single" defaultValue={defaultOpen}>
         {localizedNavigation.map((item, index) => {
           const isActive = asPath === item.url;
           return (
